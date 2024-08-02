@@ -1,0 +1,184 @@
+{
+  "posts": [
+    {
+      "id": "25300396",
+      "title": "Self-host your fonts for better performance",
+      "createdAt": "2020-12-04T09:01:48Z",
+      "updatedAt": "2024-01-27T23:06:19Z",
+      "points": 610,
+      "numberOfComments": 403,
+      "url": "https://wicki.io/posts/2020-11-goodbye-google-fonts/"
+    },
+    {
+      "id": "21235957",
+      "title": "Ask HN: What do you self-host?",
+      "createdAt": "2019-10-12T20:24:11Z",
+      "updatedAt": "2023-12-26T16:30:09Z",
+      "points": 538,
+      "numberOfComments": 335,
+      "url": null
+    },
+    {
+      "id": "35031109",
+      "title": "Self-Host All the Things?",
+      "createdAt": "2023-03-05T16:35:10Z",
+      "updatedAt": "2024-03-20T02:00:33Z",
+      "points": 483,
+      "numberOfComments": 288,
+      "url": "https://tedium.co/2023/03/04/self-hosted-saas-app-alternatives/"
+    },
+    {
+      "id": "18372486",
+      "title": "Dank-selfhosted: automated deployment of email, web, DNS, XMPP, ZNC on OpenBSD",
+      "createdAt": "2018-11-03T21:05:47Z",
+      "updatedAt": "2023-09-07T04:14:40Z",
+      "points": 402,
+      "numberOfComments": 84,
+      "url": "https://github.com/cullum/dank-selfhosted"
+    },
+    {
+      "id": "13797797",
+      "title": "AMA: Explaining my 750 line compiler+runtime designed to GPU self-host APL",
+      "createdAt": "2017-03-05T19:01:03Z",
+      "updatedAt": "2024-01-14T04:55:22Z",
+      "points": 335,
+      "numberOfComments": 155,
+      "url": "https://www.youtube.com/watch?v=gcUWTa16Jc0"
+    },
+    {
+      "id": "22394524",
+      "title": "Should you self-host Google Fonts?",
+      "createdAt": "2020-02-23T01:32:28Z",
+      "updatedAt": "2024-02-04T14:26:07Z",
+      "points": 289,
+      "numberOfComments": 155,
+      "url": "https://www.tunetheweb.com/blog/should-you-self-host-google-fonts/"
+    },
+    {
+      "id": "34770898",
+      "title": "Show HN: Self-host Whisper As a Service with GUI and queueing",
+      "createdAt": "2023-02-13T07:00:25Z",
+      "updatedAt": "2023-09-23T02:56:56Z",
+      "points": 267,
+      "numberOfComments": 54,
+      "url": "https://github.com/schibsted/WAAS"
+    },
+    {
+      "id": "11644042",
+      "title": "Use AWS Lambda to self-host the comments for your blog",
+      "createdAt": "2016-05-06T14:08:01Z",
+      "updatedAt": "2023-09-07T00:23:13Z",
+      "points": 226,
+      "numberOfComments": 121,
+      "url": "https://jimpick.com/2016/05/05/introducing-lambda-comments/"
+    },
+    {
+      "id": "39526863",
+      "title": "Dad died in 2022. Since 2023, things he selfhosted have slowly begun breaking",
+      "createdAt": "2024-02-27T17:34:38Z",
+      "updatedAt": "2024-05-06T17:56:39Z",
+      "points": 197,
+      "numberOfComments": 97,
+      "url": "https://old.reddit.com/r/selfhosted/comments/1b0rdft/dad_died_in_2022_since_2023_things_he_selfhosted/"
+    },
+    {
+      "id": "26806601",
+      "title": "Awesome-Selfhosted",
+      "createdAt": "2021-04-14T13:14:35Z",
+      "updatedAt": "2023-11-04T15:31:09Z",
+      "points": 194,
+      "numberOfComments": 42,
+      "url": "https://github.com/awesome-selfhosted/awesome-selfhosted"
+    },
+    {
+      "id": "11662686",
+      "title": "Self-host analytics for better privacy and accuracy",
+      "createdAt": "2016-05-09T20:04:13Z",
+      "updatedAt": "2023-09-07T00:24:46Z",
+      "points": 193,
+      "numberOfComments": 89,
+      "url": "https://blog.filippo.io/self-host-analytics/"
+    },
+    {
+      "id": "27671376",
+      "title": "Ask HN: Do you self-host your database?",
+      "createdAt": "2021-06-29T03:23:23Z",
+      "updatedAt": "2024-07-23T16:33:26Z",
+      "points": 183,
+      "numberOfComments": 231,
+      "url": null
+    },
+    {
+      "id": "30981280",
+      "title": "Pinry: A Selfhosted Alternative to Pinterest",
+      "createdAt": "2022-04-10T20:19:33Z",
+      "updatedAt": "2024-05-23T09:15:13Z",
+      "points": 154,
+      "numberOfComments": 37,
+      "url": "https://github.com/pinry/pinry"
+    },
+    {
+      "id": "30871211",
+      "title": "Selfhosted tech starter pack for development of new project or startup",
+      "createdAt": "2022-03-31T19:17:59Z",
+      "updatedAt": "2023-09-07T11:09:45Z",
+      "points": 140,
+      "numberOfComments": 54,
+      "url": "https://github.com/tldr-devops/startpack"
+    },
+    {
+      "id": "23368536",
+      "title": "Rethinking of CGI as a selfhosted lambda server",
+      "createdAt": "2020-05-31T10:24:26Z",
+      "updatedAt": "2023-09-07T06:54:28Z",
+      "points": 121,
+      "numberOfComments": 64,
+      "url": "https://trusted-cgi.reddec.net/"
+    },
+    {
+      "id": "39024148",
+      "title": "Technitium DNS Server: Self host a DNS server for privacy and security",
+      "createdAt": "2024-01-17T06:51:30Z",
+      "updatedAt": "2024-05-30T08:20:21Z",
+      "points": 116,
+      "numberOfComments": 82,
+      "url": "https://technitium.com/dns/"
+    },
+    {
+      "id": "23816462",
+      "title": "Self Host a Wiki or Knowledge Base for Your Team",
+      "createdAt": "2020-07-13T02:00:01Z",
+      "updatedAt": "2023-10-13T19:38:34Z",
+      "points": 115,
+      "numberOfComments": 72,
+      "url": "http://chsasank.github.io/outline-self-hosted-wiki.html"
+    },
+    {
+      "id": "30569528",
+      "title": "Self-host your static assets (2019)",
+      "createdAt": "2022-03-05T17:22:40Z",
+      "updatedAt": "2023-09-07T10:44:39Z",
+      "points": 112,
+      "numberOfComments": 56,
+      "url": "https://csswizardry.com/2019/05/self-host-your-static-assets/"
+    },
+    {
+      "id": "31986455",
+      "title": "Selfhosting on Localhost",
+      "createdAt": "2022-07-05T10:24:20Z",
+      "updatedAt": "2024-03-08T15:33:34Z",
+      "points": 111,
+      "numberOfComments": 53,
+      "url": "https://jo-m.ch/posts/2022/07/self-hosting-on-localhost/"
+    },
+    {
+      "id": "39260685",
+      "title": "Tell me your most exotic selfhosted solution",
+      "createdAt": "2024-02-05T12:47:52Z",
+      "updatedAt": "2024-03-05T07:22:04Z",
+      "points": 109,
+      "numberOfComments": 77,
+      "url": "https://old.reddit.com/r/selfhosted/comments/187d7m2/tell_me_your_most_exotic_selfhosted_solution_the/"
+    }
+  ]
+}

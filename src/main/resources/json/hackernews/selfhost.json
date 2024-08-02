@@ -1,0 +1,1431 @@
+{
+  "@@@source": "https://hn.algolia.com/api/v1/search?query=selfhost&tags=story",
+  "exhaustive": {
+    "nbHits": false,
+    "typo": false
+  },
+  "exhaustiveNbHits": false,
+  "exhaustiveTypo": false,
+  "hits": [
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "zwacky"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Self-host</em> your fonts for better performance"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://wicki.io/posts/2020-11-goodbye-google-fonts/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_zwacky",
+        "story_25300396"
+      ],
+      "author": "zwacky",
+      "children": [
+        25300558,
+        25300601,
+        25300602,
+        25300604,
+        25300624,
+        25300627,
+        25300630,
+        25300634,
+        25300639,
+        25300641,
+        25300654,
+        25300689,
+        25300691,
+        25300695,
+        25300714,
+        25300733,
+        25300785,
+        25300794,
+        25300881,
+        25300889,
+        25300922,
+        25300929,
+        25300935,
+        25300950,
+        25300992,
+        25301001,
+        25301058,
+        25301163,
+        25301197,
+        25301280,
+        25301286,
+        25301411,
+        25301412,
+        25301519,
+        25301585,
+        25301657,
+        25302079,
+        25302141,
+        25302143,
+        25302189,
+        25302564,
+        25302608,
+        25302929,
+        25303263,
+        25303311,
+        25303507,
+        25303844,
+        25304012,
+        25304030,
+        25304383,
+        25304393,
+        25304395,
+        25304397,
+        25305803,
+        25305820,
+        25306379,
+        25308106
+      ],
+      "created_at": "2020-12-04T09:01:48Z",
+      "created_at_i": 1607072508,
+      "num_comments": 403,
+      "objectID": "25300396",
+      "points": 610,
+      "story_id": 25300396,
+      "title": "Self-host your fonts for better performance",
+      "updated_at": "2024-01-27T23:06:19Z",
+      "url": "https://wicki.io/posts/2020-11-goodbye-google-fonts/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "aeleos"
+        },
+        "story_text": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "I know this is has been posted before but that was a few years ago so I wanted to restart the discussion, as I love hearing about what people host at home.<p>I am currently running an Unraid server with some docker containers, here are a few of them: Plex, Radarr, Sonarr, Ombi, NZBGet, Bitwarden, Storj, Hyrda, Nextcloud, NginxProxyManager, Unifi, Pihole, OpenVPN, InfluxDB, Grafana."
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Ask HN: What do you <em>self-host</em>?"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_aeleos",
+        "story_21235957",
+        "ask_hn"
+      ],
+      "author": "aeleos",
+      "children": [
+        21236393,
+        21236420,
+        21236428,
+        21236480,
+        21236498,
+        21236626,
+        21236646,
+        21236718,
+        21236733,
+        21236856,
+        21236864,
+        21236866,
+        21236910,
+        21237127,
+        21237291,
+        21237337,
+        21237484,
+        21237616,
+        21237632,
+        21237699,
+        21237756,
+        21237802,
+        21237803,
+        21237837,
+        21237862,
+        21237904,
+        21237910,
+        21237939,
+        21237954,
+        21238059,
+        21238107,
+        21238112,
+        21238126,
+        21238144,
+        21238148,
+        21238219,
+        21238250,
+        21238256,
+        21238324,
+        21238466,
+        21238472,
+        21238497,
+        21238522,
+        21238544,
+        21238596,
+        21238690,
+        21238709,
+        21238746,
+        21238757,
+        21238763,
+        21238769,
+        21238798,
+        21238809,
+        21238833,
+        21238883,
+        21238888,
+        21238936,
+        21238938,
+        21238940,
+        21238992,
+        21239095,
+        21239099,
+        21239128,
+        21239155,
+        21239164,
+        21239321,
+        21239344,
+        21239348,
+        21239405,
+        21239487,
+        21239494,
+        21239520,
+        21239532,
+        21239533,
+        21239567,
+        21239592,
+        21239637,
+        21239733,
+        21239744,
+        21239786,
+        21239869,
+        21239963,
+        21239973,
+        21240069,
+        21240076,
+        21240093,
+        21240140,
+        21240143,
+        21240330,
+        21240357,
+        21240361,
+        21240378,
+        21240397,
+        21240414,
+        21240438,
+        21240455,
+        21240534,
+        21240596,
+        21240662,
+        21240708,
+        21240746,
+        21240765,
+        21240913,
+        21242787,
+        21243489,
+        21244620,
+        21247930,
+        21248725,
+        21252883,
+        21256201,
+        21257342,
+        21273547,
+        21291333,
+        21292634
+      ],
+      "created_at": "2019-10-12T20:24:11Z",
+      "created_at_i": 1570911851,
+      "num_comments": 335,
+      "objectID": "21235957",
+      "points": 538,
+      "story_id": 21235957,
+      "story_text": "I know this is has been posted before but that was a few years ago so I wanted to restart the discussion, as I love hearing about what people host at home.<p>I am currently running an Unraid server with some docker containers, here are a few of them: Plex, Radarr, Sonarr, Ombi, NZBGet, Bitwarden, Storj, Hyrda, Nextcloud, NginxProxyManager, Unifi, Pihole, OpenVPN, InfluxDB, Grafana.",
+      "title": "Ask HN: What do you self-host?",
+      "updated_at": "2023-12-26T16:30:09Z"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "ecliptik"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Self-Host</em> All the Things?"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://tedium.co/2023/03/04/self-hosted-saas-app-alternatives/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_ecliptik",
+        "story_35031109"
+      ],
+      "author": "ecliptik",
+      "children": [
+        35031973,
+        35032085,
+        35032187,
+        35032267,
+        35032772,
+        35032837,
+        35032939,
+        35033082,
+        35033119,
+        35033337,
+        35033466,
+        35033530,
+        35033630,
+        35033807,
+        35034142,
+        35034173,
+        35034268,
+        35034740,
+        35034893,
+        35035161,
+        35035230,
+        35035383,
+        35035815,
+        35035868,
+        35036104,
+        35036140,
+        35036356,
+        35036432,
+        35036944,
+        35037064,
+        35037163,
+        35037233,
+        35037315,
+        35037595,
+        35037975,
+        35038225,
+        35038240,
+        35038372,
+        35038471,
+        35038879,
+        35039723,
+        35039941,
+        35041533,
+        35046039,
+        35175042
+      ],
+      "created_at": "2023-03-05T16:35:10Z",
+      "created_at_i": 1678034110,
+      "num_comments": 288,
+      "objectID": "35031109",
+      "points": 483,
+      "story_id": 35031109,
+      "title": "Self-Host All the Things?",
+      "updated_at": "2024-03-20T02:00:33Z",
+      "url": "https://tedium.co/2023/03/04/self-hosted-saas-app-alternatives/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "indigodaddy"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Dank-<em>selfhost</em>ed: automated deployment of email, web, DNS, XMPP, ZNC on OpenBSD"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://github.com/cullum/dank-<em>selfhost</em>ed"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_indigodaddy",
+        "story_18372486"
+      ],
+      "author": "indigodaddy",
+      "children": [
+        18372574,
+        18372607,
+        18372617,
+        18372631,
+        18372677,
+        18372684,
+        18372709,
+        18372796,
+        18372843,
+        18373073,
+        18373125,
+        18373148,
+        18373559,
+        18373624,
+        18373666,
+        18373815,
+        18374266,
+        18375175,
+        18375411,
+        18376137
+      ],
+      "created_at": "2018-11-03T21:05:47Z",
+      "created_at_i": 1541279147,
+      "num_comments": 84,
+      "objectID": "18372486",
+      "points": 402,
+      "story_id": 18372486,
+      "title": "Dank-selfhosted: automated deployment of email, web, DNS, XMPP, ZNC on OpenBSD",
+      "updated_at": "2023-09-07T04:14:40Z",
+      "url": "https://github.com/cullum/dank-selfhosted"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "arcfide"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "AMA: Explaining my 750 line compiler+runtime designed to GPU <em>self-host</em> APL"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://www.youtube.com/watch?v=gcUWTa16Jc0"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_arcfide",
+        "story_13797797"
+      ],
+      "author": "arcfide",
+      "children": [
+        13797812,
+        13798005,
+        13798052,
+        13798117,
+        13798508,
+        13798527,
+        13798613,
+        13798733,
+        13798917,
+        13799019,
+        13799598,
+        13799676,
+        13799713,
+        13799804,
+        13799896,
+        13800038,
+        13800044,
+        13800072,
+        13800096,
+        13800766,
+        13801324,
+        13805942
+      ],
+      "created_at": "2017-03-05T19:01:03Z",
+      "created_at_i": 1488740463,
+      "num_comments": 155,
+      "objectID": "13797797",
+      "points": 335,
+      "story_id": 13797797,
+      "title": "AMA: Explaining my 750 line compiler+runtime designed to GPU self-host APL",
+      "updated_at": "2024-01-14T04:55:22Z",
+      "url": "https://www.youtube.com/watch?v=gcUWTa16Jc0"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "bewuethr"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Should you <em>self-host</em> Google Fonts?"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://www.tunetheweb.com/blog/should-you-<em>self-host</em>-google-fonts/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_bewuethr",
+        "story_22394524"
+      ],
+      "author": "bewuethr",
+      "children": [
+        22394666,
+        22394688,
+        22394730,
+        22394732,
+        22394814,
+        22394824,
+        22394837,
+        22394858,
+        22394890,
+        22394975,
+        22395062,
+        22395127,
+        22395130,
+        22395214,
+        22395397,
+        22395475,
+        22395537,
+        22395606,
+        22395625,
+        22395688,
+        22396105,
+        22396240,
+        22396245,
+        22396337,
+        22396441,
+        22396569,
+        22396599,
+        22396605,
+        22396739,
+        22396812,
+        22396952,
+        22397006,
+        22397057,
+        22397642,
+        22397696,
+        22398052,
+        22398670
+      ],
+      "created_at": "2020-02-23T01:32:28Z",
+      "created_at_i": 1582421548,
+      "num_comments": 155,
+      "objectID": "22394524",
+      "points": 289,
+      "story_id": 22394524,
+      "title": "Should you self-host Google Fonts?",
+      "updated_at": "2024-02-04T14:26:07Z",
+      "url": "https://www.tunetheweb.com/blog/should-you-self-host-google-fonts/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "olekenneth"
+        },
+        "story_text": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Schibsted created a transcription service for our journalists to transcribe audio interviews and podcasts really quick."
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Show HN: <em>Self-host</em> Whisper As a Service with GUI and queueing"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/schibsted/WAAS"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_olekenneth",
+        "show_hn",
+        "story_34770898"
+      ],
+      "author": "olekenneth",
+      "children": [
+        34771744,
+        34771770,
+        34771853,
+        34771955,
+        34771981,
+        34772220,
+        34772292,
+        34772375,
+        34773342,
+        34773443,
+        34773735,
+        34774146,
+        34774551,
+        34774809,
+        34774955,
+        34775815,
+        34777107,
+        34779450
+      ],
+      "created_at": "2023-02-13T07:00:25Z",
+      "created_at_i": 1676271625,
+      "num_comments": 54,
+      "objectID": "34770898",
+      "points": 267,
+      "story_id": 34770898,
+      "story_text": "Schibsted created a transcription service for our journalists to transcribe audio interviews and podcasts really quick.",
+      "title": "Show HN: Self-host Whisper As a Service with GUI and queueing",
+      "updated_at": "2023-09-23T02:56:56Z",
+      "url": "https://github.com/schibsted/WAAS"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "jarmitage"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Use AWS Lambda to <em>self-host</em> the comments for your blog"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://jimpick.com/2016/05/05/introducing-lambda-comments/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_jarmitage",
+        "story_11644042"
+      ],
+      "author": "jarmitage",
+      "children": [
+        11644758,
+        11645119,
+        11645222,
+        11645229,
+        11645243,
+        11645274,
+        11645303,
+        11645340,
+        11645408,
+        11645659,
+        11645811,
+        11645927,
+        11646335,
+        11646393,
+        11646487,
+        11646857,
+        11646873,
+        11647156,
+        11647209,
+        11647230,
+        11647376,
+        11647717,
+        11647919,
+        11649208,
+        11649392,
+        11653826
+      ],
+      "created_at": "2016-05-06T14:08:01Z",
+      "created_at_i": 1462543681,
+      "num_comments": 121,
+      "objectID": "11644042",
+      "points": 226,
+      "story_id": 11644042,
+      "title": "Use AWS Lambda to self-host the comments for your blog",
+      "updated_at": "2023-09-07T00:23:13Z",
+      "url": "https://jimpick.com/2016/05/05/introducing-lambda-comments/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "speckx"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Dad died in 2022. Since 2023, things he <em>selfhost</em>ed have slowly begun breaking"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://old.reddit.com/r/<em>selfhost</em>ed/comments/1b0rdft/dad_died_in_2022_since_2023_things_he_<em>selfhost</em>ed/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_speckx",
+        "story_39526863"
+      ],
+      "author": "speckx",
+      "children": [
+        39527149,
+        39527159,
+        39527201,
+        39527239,
+        39527359,
+        39527501,
+        39527604,
+        39527748,
+        39527807,
+        39528040,
+        39528239,
+        39528240,
+        39528272,
+        39529692,
+        39534123,
+        39536858
+      ],
+      "created_at": "2024-02-27T17:34:38Z",
+      "created_at_i": 1709055278,
+      "num_comments": 97,
+      "objectID": "39526863",
+      "points": 197,
+      "story_id": 39526863,
+      "title": "Dad died in 2022. Since 2023, things he selfhosted have slowly begun breaking",
+      "updated_at": "2024-05-06T17:56:39Z",
+      "url": "https://old.reddit.com/r/selfhosted/comments/1b0rdft/dad_died_in_2022_since_2023_things_he_selfhosted/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "diplodocusaur"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Awesome-<em>Selfhost</em>ed"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://github.com/awesome-<em>selfhost</em>ed/awesome-<em>selfhost</em>ed"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_diplodocusaur",
+        "story_26806601"
+      ],
+      "author": "diplodocusaur",
+      "children": [
+        26808939,
+        26809204,
+        26809424,
+        26810301,
+        26810982,
+        26812933,
+        26814583,
+        26814744
+      ],
+      "created_at": "2021-04-14T13:14:35Z",
+      "created_at_i": 1618406075,
+      "num_comments": 42,
+      "objectID": "26806601",
+      "points": 194,
+      "story_id": 26806601,
+      "title": "Awesome-Selfhosted",
+      "updated_at": "2023-11-04T15:31:09Z",
+      "url": "https://github.com/awesome-selfhosted/awesome-selfhosted"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "FiloSottile"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Self-host</em> analytics for better privacy and accuracy"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://blog.filippo.io/<em>self-host</em>-analytics/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_FiloSottile",
+        "story_11662686"
+      ],
+      "author": "FiloSottile",
+      "children": [
+        11662848,
+        11662969,
+        11663094,
+        11663121,
+        11663159,
+        11663259,
+        11663281,
+        11663324,
+        11663342,
+        11663431,
+        11663472,
+        11663851,
+        11663900,
+        11663988,
+        11664061,
+        11664250,
+        11664495,
+        11664787
+      ],
+      "created_at": "2016-05-09T20:04:13Z",
+      "created_at_i": 1462824253,
+      "num_comments": 89,
+      "objectID": "11662686",
+      "points": 193,
+      "story_id": 11662686,
+      "title": "Self-host analytics for better privacy and accuracy",
+      "updated_at": "2023-09-07T00:24:46Z",
+      "url": "https://blog.filippo.io/self-host-analytics/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "vira28"
+        },
+        "story_text": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Now that there are so many options like \nAWS\nGCP\nAzure\nDigital Ocean\nHeroku\nRender\nFirebase\nSupabase\netc..<p>I was wondering does anyone these days <em>Self-host</em> databases on their infra?"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Ask HN: Do you <em>self-host</em> your database?"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_vira28",
+        "story_27671376",
+        "ask_hn"
+      ],
+      "author": "vira28",
+      "children": [
+        27671712,
+        27671783,
+        27671949,
+        27672097,
+        27672138,
+        27672248,
+        27672258,
+        27672291,
+        27672349,
+        27672363,
+        27672438,
+        27672453,
+        27672498,
+        27672501,
+        27672515,
+        27672532,
+        27672551,
+        27672568,
+        27672581,
+        27672604,
+        27672709,
+        27672947,
+        27673359,
+        27673396,
+        27673550,
+        27673573,
+        27673609,
+        27673631,
+        27673651,
+        27673661,
+        27673709,
+        27673726,
+        27673835,
+        27673840,
+        27673901,
+        27673908,
+        27673932,
+        27673949,
+        27674028,
+        27674097,
+        27674106,
+        27674172,
+        27674280,
+        27674281,
+        27674497,
+        27674524,
+        27674608,
+        27674868,
+        27674973,
+        27674986,
+        27675019,
+        27675234,
+        27675237,
+        27675373,
+        27675802,
+        27675837,
+        27675879,
+        27676213,
+        27676258,
+        27676276,
+        27676782,
+        27677190,
+        27677546,
+        27678000,
+        27678671,
+        27679145,
+        27680170,
+        27681138,
+        27683527,
+        27685679
+      ],
+      "created_at": "2021-06-29T03:23:23Z",
+      "created_at_i": 1624937003,
+      "num_comments": 231,
+      "objectID": "27671376",
+      "points": 183,
+      "story_id": 27671376,
+      "story_text": "Now that there are so many options like \nAWS\nGCP\nAzure\nDigital Ocean\nHeroku\nRender\nFirebase\nSupabase\netc..<p>I was wondering does anyone these days Self-host databases on their infra?",
+      "title": "Ask HN: Do you self-host your database?",
+      "updated_at": "2024-07-23T16:33:26Z"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "thunderbong"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Pinry: A <em>Selfhost</em>ed Alternative to Pinterest"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/pinry/pinry"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_thunderbong",
+        "story_30981280"
+      ],
+      "author": "thunderbong",
+      "children": [
+        30981790,
+        30982080,
+        30982510,
+        30982814,
+        30983641,
+        30983660,
+        30984221,
+        30984742,
+        30985879,
+        30992268
+      ],
+      "created_at": "2022-04-10T20:19:33Z",
+      "created_at_i": 1649621973,
+      "num_comments": 37,
+      "objectID": "30981280",
+      "points": 154,
+      "story_id": 30981280,
+      "title": "Pinry: A Selfhosted Alternative to Pinterest",
+      "updated_at": "2024-05-23T09:15:13Z",
+      "url": "https://github.com/pinry/pinry"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "frizzy"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Selfhost</em>ed tech starter pack for development of new project or startup"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/tldr-devops/startpack"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_frizzy",
+        "story_30871211"
+      ],
+      "author": "frizzy",
+      "children": [
+        30871520,
+        30871600,
+        30871702,
+        30871817,
+        30871867,
+        30871888,
+        30871911,
+        30871988,
+        30872065,
+        30872226,
+        30872230,
+        30872330,
+        30872577,
+        30873005,
+        30879107,
+        30885836
+      ],
+      "created_at": "2022-03-31T19:17:59Z",
+      "created_at_i": 1648754279,
+      "num_comments": 54,
+      "objectID": "30871211",
+      "points": 140,
+      "story_id": 30871211,
+      "title": "Selfhosted tech starter pack for development of new project or startup",
+      "updated_at": "2023-09-07T11:09:45Z",
+      "url": "https://github.com/tldr-devops/startpack"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "reddec"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Rethinking of CGI as a <em>selfhost</em>ed lambda server"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://trusted-cgi.reddec.net/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_reddec",
+        "story_23368536"
+      ],
+      "author": "reddec",
+      "children": [
+        23375508,
+        23375519,
+        23375721,
+        23375756,
+        23375893,
+        23376125,
+        23376353,
+        23377029,
+        23377705,
+        23377791,
+        23378236,
+        23378732,
+        23381209
+      ],
+      "created_at": "2020-05-31T10:24:26Z",
+      "created_at_i": 1590920666,
+      "num_comments": 64,
+      "objectID": "23368536",
+      "points": 121,
+      "story_id": 23368536,
+      "title": "Rethinking of CGI as a selfhosted lambda server",
+      "updated_at": "2023-09-07T06:54:28Z",
+      "url": "https://trusted-cgi.reddec.net/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "thunderbong"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Technitium DNS Server: <em>Self host</em> a DNS server for privacy and security"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://technitium.com/dns/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_thunderbong",
+        "story_39024148"
+      ],
+      "author": "thunderbong",
+      "children": [
+        39024950,
+        39025393,
+        39025474,
+        39025565,
+        39025979,
+        39026067,
+        39026622,
+        39026715,
+        39026773,
+        39026922,
+        39027318,
+        39029743,
+        39029874,
+        39032461,
+        39032865,
+        39034104,
+        39052604
+      ],
+      "created_at": "2024-01-17T06:51:30Z",
+      "created_at_i": 1705474290,
+      "num_comments": 82,
+      "objectID": "39024148",
+      "points": 116,
+      "story_id": 39024148,
+      "title": "Technitium DNS Server: Self host a DNS server for privacy and security",
+      "updated_at": "2024-05-30T08:20:21Z",
+      "url": "https://technitium.com/dns/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "chsasank"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Self Host</em> a Wiki or Knowledge Base for Your Team"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "http://chsasank.github.io/outline-self-hosted-wiki.html"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_chsasank",
+        "story_23816462"
+      ],
+      "author": "chsasank",
+      "children": [
+        23817796,
+        23817925,
+        23818233,
+        23818387,
+        23818928,
+        23818970,
+        23819279,
+        23819308,
+        23819319,
+        23819455,
+        23819554,
+        23819905,
+        23820099,
+        23820274,
+        23820829,
+        23821492,
+        23821522,
+        23821560,
+        23822275
+      ],
+      "created_at": "2020-07-13T02:00:01Z",
+      "created_at_i": 1594605601,
+      "num_comments": 72,
+      "objectID": "23816462",
+      "points": 115,
+      "story_id": 23816462,
+      "title": "Self Host a Wiki or Knowledge Base for Your Team",
+      "updated_at": "2023-10-13T19:38:34Z",
+      "url": "http://chsasank.github.io/outline-self-hosted-wiki.html"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "kosasbest"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Self-host</em> your static assets (2019)"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://csswizardry.com/2019/05/<em>self-host</em>-your-static-assets/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_kosasbest",
+        "story_30569528"
+      ],
+      "author": "kosasbest",
+      "children": [
+        30570000,
+        30570491,
+        30570502,
+        30570824,
+        30571117,
+        30571158,
+        30571186,
+        30571407,
+        30571515,
+        30571704,
+        30571775,
+        30571814,
+        30572106,
+        30573001,
+        30574736,
+        30574973
+      ],
+      "created_at": "2022-03-05T17:22:40Z",
+      "created_at_i": 1646500960,
+      "num_comments": 56,
+      "objectID": "30569528",
+      "points": 112,
+      "story_id": 30569528,
+      "title": "Self-host your static assets (2019)",
+      "updated_at": "2023-09-07T10:44:39Z",
+      "url": "https://csswizardry.com/2019/05/self-host-your-static-assets/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "jo-m"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "<em>Selfhost</em>ing on Localhost"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://jo-m.ch/posts/2022/07/self-hosting-on-localhost/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_jo-m",
+        "story_31986455"
+      ],
+      "author": "jo-m",
+      "children": [
+        31986887,
+        31987412,
+        31987422,
+        31988091,
+        31988575,
+        31989303,
+        31989883,
+        31990514,
+        31990967,
+        31991003,
+        31991255,
+        31993705
+      ],
+      "created_at": "2022-07-05T10:24:20Z",
+      "created_at_i": 1657016660,
+      "num_comments": 53,
+      "objectID": "31986455",
+      "points": 111,
+      "story_id": 31986455,
+      "title": "Selfhosting on Localhost",
+      "updated_at": "2024-03-08T15:33:34Z",
+      "url": "https://jo-m.ch/posts/2022/07/self-hosting-on-localhost/"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "wscourge"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "Tell me your most exotic <em>selfhost</em>ed solution"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "selfhost"
+          ],
+          "value": "https://old.reddit.com/r/<em>selfhost</em>ed/comments/187d7m2/tell_me_your_most_exotic_<em>selfhost</em>ed_solution_the/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_wscourge",
+        "story_39260685"
+      ],
+      "author": "wscourge",
+      "children": [
+        39260690,
+        39261123,
+        39261253,
+        39261687,
+        39261816,
+        39261981,
+        39262021,
+        39262064,
+        39262209,
+        39262298,
+        39262357,
+        39262595,
+        39262596,
+        39262849,
+        39262994,
+        39263207,
+        39263215,
+        39263217,
+        39263905,
+        39264042,
+        39264113,
+        39264419,
+        39264721,
+        39265386,
+        39267292,
+        39267896,
+        39268927,
+        39274382
+      ],
+      "created_at": "2024-02-05T12:47:52Z",
+      "created_at_i": 1707137272,
+      "num_comments": 77,
+      "objectID": "39260685",
+      "points": 109,
+      "story_id": 39260685,
+      "title": "Tell me your most exotic selfhosted solution",
+      "updated_at": "2024-03-05T07:22:04Z",
+      "url": "https://old.reddit.com/r/selfhosted/comments/187d7m2/tell_me_your_most_exotic_selfhosted_solution_the/"
+    }
+  ],
+  "hitsPerPage": 20,
+  "nbHits": 764,
+  "nbPages": 39,
+  "page": 0,
+  "params": "query=selfhost&tags=story&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 10,
+  "processingTimingsMS": {
+    "_request": {
+      "roundTrip": 15
+    },
+    "afterFetch": {
+      "merge": {
+        "total": 1
+      },
+      "total": 2
+    },
+    "fetch": {
+      "query": 6,
+      "scanning": 1,
+      "total": 8
+    },
+    "total": 10
+  },
+  "query": "selfhost",
+  "serverTimeMS": 11
+}
