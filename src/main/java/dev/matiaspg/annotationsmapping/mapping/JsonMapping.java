@@ -2,12 +2,10 @@ package dev.matiaspg.annotationsmapping.mapping;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.matiaspg.annotationsmapping.mapping.handlers.MappingAnnotationHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,26 +14,30 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
 public class JsonMapping {
+    // TODO: Configure the ObjectMapper to return null by default, instead of "null"
     private static final ObjectMapper om = new ObjectMapper();
 
     private final MappingAnnotationHandlers handlers;
+    private final ClassMappers classMappersCache;
 
     public <T> T mapJson(JsonNode json, Class<T> targetClass) {
-        MappingContext<T> ctx = MappingContext.<T>builder()
-            .mapper(om)
-            .rootNode(json)
-            .currentNode(json)
-            .targetClass(targetClass)
-            .recursive(this::mapJson)
-            .build();
-        Collection<BiConsumer<JsonNode, Object>> mappers = getMappers(ctx);
+        Collection<BiConsumer<JsonNode, Object>> mappers = classMappersCache
+            // Cache the mappers since they can be reused
+            .getOrCreateMapper(targetClass, () -> {
+                MappingContext<T> ctx = MappingContext.<T>builder()
+                    .mapper(om)
+                    .recursive(this::mapJson)
+                    .build();
+                return getMappers(targetClass, ctx);
+            });
 
         T instance = createInstance(targetClass);
-        mappers.forEach(m -> m.accept(json, instance));
+        mappers.forEach(mapper -> mapper.accept(json, instance));
 
         return instance;
 
@@ -44,6 +46,81 @@ public class JsonMapping {
         //  instances, work with ObjectNodes/ArrayNodes, and at the end
         //  transform them to the final object. This should make code simpler
         //  and perhaps (?) more efficient
+    }
+
+    private <T> Collection<BiConsumer<JsonNode, Object>> getMappers(
+        Class<T> targetClass, MappingContext<T> ctx) {
+        List<BiConsumer<JsonNode, Object>> mappers = new ArrayList<>();
+
+        // Annotated fields
+        for (Field field : getClassFields(targetClass)) {
+            Stream.of(field.getAnnotations())
+                // Check if it's a mapping annotation, e.g. @MapFrom
+                .map(annotation -> handlers.getHandler(annotation.annotationType()))
+                // If it's not a mapping annotation, continue with the rest
+                .filter(Optional::isPresent).map(Optional::get)
+                // Otherwise, create a field mapper
+                .map(handler -> handler.createFieldMapper(field, ctx))
+                .forEach(mapper -> mappers.add((input, instance) -> {
+                    boolean wasAccessible = field.canAccess(instance);
+                    try {
+                        // Temporarily set the field as accessible so that
+                        // it can be modified
+                        field.setAccessible(true);
+
+                        mapper.accept(input, instance);
+                    } finally {
+                        // Restore the previous value
+                        field.setAccessible(wasAccessible);
+                    }
+                }));
+        }
+
+        // Annotated methods
+        for (Method method : getClassMethods(targetClass)) {
+            Stream.of(method.getAnnotations())
+                // Check if it's a mapping annotation, e.g. @MapFrom
+                .map(annotation -> handlers.getHandler(annotation.annotationType()))
+                // If it's not a mapping annotation, continue with the rest
+                .filter(Optional::isPresent).map(Optional::get)
+                .map(handler -> handler.createMethodMapper(method, ctx))
+                // Call the setter with the current node
+                .forEach(mapper -> mappers.add((input, instance) -> {
+                    boolean wasAccessible = method.canAccess(instance);
+                    try {
+                        // Temporarily set the method as accessible so that
+                        // it can be invoked
+                        method.setAccessible(true);
+
+                        mapper.accept(input, instance);
+                    } finally {
+                        // Restore the previous value
+                        method.setAccessible(wasAccessible);
+                    }
+                }));
+        }
+
+        return mappers;
+    }
+
+    private static Field[] getClassFields(Class<?> clazz) {
+        // To support inheritance
+        Stream<Field> parentFields = clazz.getSuperclass() == null
+            ? Stream.empty()
+            : Stream.of(getClassFields(clazz.getSuperclass()));
+        Stream<Field> classFields = Stream.of(clazz.getDeclaredFields());
+        // Return an array with fields from the class and its ancestors
+        return Stream.concat(parentFields, classFields).toArray(Field[]::new);
+    }
+
+    private static Method[] getClassMethods(Class<?> clazz) {
+        // To support inheritance
+        Stream<Method> parentMethods = clazz.getSuperclass() == null
+            ? Stream.empty()
+            : Stream.of(getClassMethods(clazz.getSuperclass()));
+        Stream<Method> classMethods = Stream.of(clazz.getDeclaredMethods());
+        // Return an array with methods from the class and its ancestors
+        return Stream.concat(parentMethods, classMethods).toArray(Method[]::new);
     }
 
     @SneakyThrows({
@@ -55,64 +132,4 @@ public class JsonMapping {
     private <T> T createInstance(Class<T> targetClass) {
         return targetClass.getDeclaredConstructor().newInstance();
     }
-
-    private <T> Collection<BiConsumer<JsonNode, Object>> getMappers(MappingContext<T> ctx) {
-        Class<T> targetClass = ctx.targetClass();
-        List<BiConsumer<JsonNode, Object>> mappers = new ArrayList<>();
-
-        // Annotated fields
-        for (Field field : targetClass.getDeclaredFields()) {
-            for (Annotation annotation : field.getAnnotations()) {
-                Optional<MappingAnnotationHandler<?>> handler = handlers
-                    .getHandler(annotation.annotationType());
-
-                if (handler.isEmpty()) {
-                    // If the annotation is not for mapping, continue with the rest
-                    continue;
-                }
-
-                BiConsumer<JsonNode, Object> mapper = handler.get().handleField(field, ctx);
-
-                mappers.add((input, instance) -> {
-                    boolean wasAccessible = field.canAccess(instance);
-                    try {
-                        field.setAccessible(true);
-
-                        mapper.accept(input, instance);
-                    } finally {
-                        field.setAccessible(wasAccessible);
-                    }
-                });
-            }
-        }
-
-        // Annotated methods
-        for (Method method : targetClass.getDeclaredMethods()) {
-            for (Annotation annotation : method.getAnnotations()) {
-                Optional<MappingAnnotationHandler<?>> handler = handlers
-                    .getHandler(annotation.annotationType());
-
-                if (handler.isEmpty()) {
-                    // If the annotation is not for mapping, continue with the rest
-                    continue;
-                }
-
-                BiConsumer<JsonNode, Object> mapper = handler.get().handleMethod(method, ctx);
-
-                // Call the setter with the current node
-                mappers.add(mapper);
-            }
-        }
-
-        return mappers;
-    }
-
-    /*private <T> void asdas(Class<T> targetClass) throws IntrospectionException {
-        BeanInfo info = Introspector.getBeanInfo(targetClass, Object.class);
-        PropertyDescriptor[] props = info.getPropertyDescriptors();
-
-        for (PropertyDescriptor pd : props) {
-            pd.getWriteMethod();
-        }
-    }*/
 }

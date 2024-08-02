@@ -6,10 +6,11 @@ import dev.matiaspg.annotationsmapping.dto.hackernews.HackerNewsPosts;
 import dev.matiaspg.annotationsmapping.mapping.JsonMapping;
 import dev.matiaspg.annotationsmapping.services.consumers.HackerNewsService;
 import dev.matiaspg.annotationsmapping.utils.JsonReader;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
 // TODO: Load necessary classes only
 @SpringBootTest
@@ -23,18 +24,18 @@ public class HackerNewsPostsMapperTest {
     private HackerNewsPostsMapper mapper;
 
     @Autowired
-    private HackerNewsService service;
+    private HackerNewsService hackerNewsService;
 
     @Autowired
     private JsonReader jsonReader;
 
     @Test
     void mapJson() {
-        JsonNode stories = service.getStories();
+        JsonNode stories = hackerNewsService.getStories();
         HackerNewsPosts result = jsonMapping.mapJson(stories, mapper.getTargetClass());
 
         JsonNode expected = jsonReader.readJson("expected_output/hackernews");
 
-        Assertions.assertEquals(expected, objectMapper.valueToTree(result));
+        assertThatJson(result).isEqualTo(expected);
     }
 }

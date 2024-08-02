@@ -14,7 +14,21 @@ public interface MappingAnnotationHandler<T> {
         return "@" + getSupportedAnnotation().getSimpleName();
     }
 
-    BiConsumer<JsonNode, Object> handleField(Field field, MappingContext<?> ctx);
+    /**
+     * Creates a function that maps a node value to a field of a class instance.
+     *
+     * @param field The field where the mapped value will be set
+     * @param ctx   Mapping context
+     * @return The function
+     */
+    BiConsumer<JsonNode, Object> createFieldMapper(Field field, MappingContext<?> ctx);
 
-    BiConsumer<JsonNode, Object> handleMethod(Method method, MappingContext<?> ctx);
+    /**
+     * Creates a function that maps a node value to a method of a class instance.
+     *
+     * @param method The method that will be called with the mapped value
+     * @param ctx    Mapping context
+     * @return The function
+     */
+    BiConsumer<JsonNode, Object> createMethodMapper(Method method, MappingContext<?> ctx);
 }

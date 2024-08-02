@@ -9,9 +9,6 @@ import java.util.function.BiFunction;
 @Builder
 public record MappingContext<T>(
     ObjectMapper mapper,
-    JsonNode rootNode,
-    JsonNode currentNode,
-    Class<T> targetClass,
     BiFunction<JsonNode, Class<?>, ?> recursive
 ) {
 }

@@ -17,7 +17,7 @@ public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
         return MapFrom.class;
     }
 
-    public BiConsumer<JsonNode, Object> handleField(Field field, MappingContext<?> ctx) {
+    public BiConsumer<JsonNode, Object> createFieldMapper(Field field, MappingContext<?> ctx) {
         return Exceptions.wrap((node, instance) -> {
             MapFrom annotation = field.getAnnotation(getSupportedAnnotation());
             Class<?> type = field.getType();
@@ -35,7 +35,7 @@ public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
     }
 
     @Override
-    public BiConsumer<JsonNode, Object> handleMethod(Method method, MappingContext<?> ctx) {
+    public BiConsumer<JsonNode, Object> createMethodMapper(Method method, MappingContext<?> ctx) {
         return Exceptions.wrap((node, instance) -> {
             Class<?>[] parameterTypes = method.getParameterTypes();
             if (parameterTypes.length != 1) {

@@ -1,153 +1,120 @@
 {
   "posts": [
     {
-      "id": "y1m85g",
-      "title": "A file uploading service that doesn't suck massive cocks.",
-      "createdAt": "1665526796",
-      "score": 6,
-      "numberOfComments": 0,
-      "url": null,
-      "ratio": 0.87,
-      "flair": null,
-      "isAuthorPremium": false,
+      "id": "1ei8380",
+      "title": "This Week in Self-Hosted (2 August 2024)",
+      "createdAt": 1722599584,
+      "createdAtTransformedBySetter": "2024-08-02T11:53:04Z",
+      "createdAtTransformedByGetter": "2024-08-02T11:53:04Z",
+      "score": 187,
+      "numberOfComments": 13,
+      "url": "https://www.reddit.com/r/selfhosted/comments/1ei8380/this_week_in_selfhosted_2_august_2024/",
+      "ratio": 0.96,
       "images": [
         {
           "source": {
-            "url": "https://external-preview.redd.it/whYZFnYvm1TOr3NyiQtz40phFj7uKrXJ8sYYSUnHW7s.jpg?auto=webp&amp;s=5cf19c8508e08d748a1873f46dcbc8c53ad26fed",
-            "width": 600,
-            "height": 300
+            "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?auto=webp&amp;s=efd5874cc8b5ca8111629feacc77a68d02bb1d6b",
+            "width": 1143,
+            "height": 583
           },
           "resolutions": [
             {
-              "url": "https://external-preview.redd.it/whYZFnYvm1TOr3NyiQtz40phFj7uKrXJ8sYYSUnHW7s.jpg?width=108&amp;crop=smart&amp;auto=webp&amp;s=84b5afb5b5f8c9b4ae37daf9cced7706eafd2a24",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=108&amp;crop=smart&amp;auto=webp&amp;s=52477967767b38847cd49d15020c3691be6e0d50",
               "width": 108,
-              "height": 54
+              "height": 55
             },
             {
-              "url": "https://external-preview.redd.it/whYZFnYvm1TOr3NyiQtz40phFj7uKrXJ8sYYSUnHW7s.jpg?width=216&amp;crop=smart&amp;auto=webp&amp;s=58bf7793e2e8f74f550b74fccc7dbb9a315696db",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=216&amp;crop=smart&amp;auto=webp&amp;s=5a0a6131df4882bbfbf9d41332802ac6c7a73e63",
               "width": 216,
-              "height": 108
+              "height": 110
             },
             {
-              "url": "https://external-preview.redd.it/whYZFnYvm1TOr3NyiQtz40phFj7uKrXJ8sYYSUnHW7s.jpg?width=320&amp;crop=smart&amp;auto=webp&amp;s=d3b0b54aa1038da43125b649981310ee3b199fd8",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=320&amp;crop=smart&amp;auto=webp&amp;s=565eb704e95345c7a65dfbe2a9ee122565604698",
               "width": 320,
-              "height": 160
-            }
-          ]
-        }
-      ],
-      "crosspostParents": null,
-      "subredditAndAuthor": null
-    },
-    {
-      "id": "trxgr9",
-      "title": "I'm trying to do a reverse proxy from Apache on MAMP Pro to my Bitwarden instance running in Docker, with SSL disabled and running on the local IP (127.0.0.1). I have searched all over, but none of the results seem to work. Does anyone know where/how I can set up a reverse proxy in MAMP Pro?",
-      "createdAt": "1648611684",
-      "score": 5,
-      "numberOfComments": 2,
-      "url": null,
-      "ratio": 1.0,
-      "flair": null,
-      "isAuthorPremium": null,
-      "images": null,
-      "crosspostParents": null,
-      "subredditAndAuthor": null
-    },
-    {
-      "id": "t926dd",
-      "title": "How is self hosted email these days? (Migrating from Gsuite)",
-      "createdAt": "1646694233",
-      "score": 6,
-      "numberOfComments": 2,
-      "url": null,
-      "ratio": 1.0,
-      "flair": null,
-      "isAuthorPremium": false,
-      "images": null,
-      "crosspostParents": null,
-      "subredditAndAuthor": null
-    },
-    {
-      "id": "rgezgi",
-      "title": "Automate manual CI/CD jobs on GitLab using this simple solution.",
-      "createdAt": "1639509584",
-      "score": 3,
-      "numberOfComments": 1,
-      "url": null,
-      "ratio": 1.0,
-      "flair": null,
-      "isAuthorPremium": false,
-      "images": [
-        {
-          "source": {
-            "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?auto=webp&amp;s=4d857561fb51c040c12407da527ccf15da779f0b",
-            "width": 2913,
-            "height": 1731
-          },
-          "resolutions": [
-            {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=108&amp;crop=smart&amp;auto=webp&amp;s=41d938fcd57d5421e0a3c0a5edba7ed48ee82029",
-              "width": 108,
-              "height": 64
+              "height": 163
             },
             {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=216&amp;crop=smart&amp;auto=webp&amp;s=cb73009389ec0cd9530da8473277e529595cb770",
-              "width": 216,
-              "height": 128
-            },
-            {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=320&amp;crop=smart&amp;auto=webp&amp;s=14a4906139d8e39ff7cec3ed9daa0c58364829a2",
-              "width": 320,
-              "height": 190
-            },
-            {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=640&amp;crop=smart&amp;auto=webp&amp;s=3fc5b1f0da330b05eafef23b48bfa75ed44d9551",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=640&amp;crop=smart&amp;auto=webp&amp;s=f89ae70fc612161d35902415bf1ac4185ab85a42",
               "width": 640,
-              "height": 380
+              "height": 326
             },
             {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=960&amp;crop=smart&amp;auto=webp&amp;s=085362772d6ec2702319edccef3e8dab0f6ff216",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=960&amp;crop=smart&amp;auto=webp&amp;s=95bbf8ee0778f9b07efc3ede5c7449966104a712",
               "width": 960,
-              "height": 570
+              "height": 489
             },
             {
-              "url": "https://external-preview.redd.it/UIpbdSaZMnsgfNSavpVdtddxw3ff0e2JItANz287y-4.jpg?width=1080&amp;crop=smart&amp;auto=webp&amp;s=5d19539de8ad3494ffac9b1e5bc3775789fba0b9",
+              "url": "https://external-preview.redd.it/Kr4dsCgiMJ3XAUOd9o156KLdK9Fpn65-nwpSWazWJfU.jpg?width=1080&amp;crop=smart&amp;auto=webp&amp;s=ae63e800f7e8a434b9fff2dbbd45cc59dcd75382",
               "width": 1080,
-              "height": 641
+              "height": 550
             }
           ]
         }
       ],
       "crosspostParents": null,
+      "flair": null,
       "subredditAndAuthor": null
     },
     {
-      "id": "athvvz",
-      "title": "I think you are looking for /r/selfhosted",
-      "createdAt": "1550843821",
-      "score": 22,
-      "numberOfComments": 0,
-      "url": null,
-      "ratio": 1.0,
-      "flair": null,
-      "isAuthorPremium": false,
+      "id": "1eic5sw",
+      "title": "Ente vs Immich?",
+      "createdAt": 1722610603,
+      "createdAtTransformedBySetter": "2024-08-02T14:56:43Z",
+      "createdAtTransformedByGetter": "2024-08-02T14:56:43Z",
+      "score": 69,
+      "numberOfComments": 52,
+      "url": "https://www.reddit.com/r/selfhosted/comments/1eic5sw/ente_vs_immich/",
+      "ratio": 0.95,
       "images": null,
       "crosspostParents": null,
+      "flair": null,
       "subredditAndAuthor": null
     },
     {
-      "id": "athvjf",
-      "title": "selfhost has been created",
-      "createdAt": "1550843759",
-      "score": 2,
-      "numberOfComments": 1,
-      "url": null,
-      "ratio": 1.0,
-      "flair": null,
-      "isAuthorPremium": false,
+      "id": "1eigxzw",
+      "title": "XPipe - A connection hub for all your servers: Status update for XPipe 10",
+      "createdAt": 1722622111,
+      "createdAtTransformedBySetter": "2024-08-02T18:08:31Z",
+      "createdAtTransformedByGetter": "2024-08-02T18:08:31Z",
+      "score": 60,
+      "numberOfComments": 15,
+      "url": "https://github.com/xpipe-io/xpipe",
+      "ratio": 0.93,
       "images": null,
       "crosspostParents": null,
+      "flair": null,
+      "subredditAndAuthor": null
+    },
+    {
+      "id": "1ei53hw",
+      "title": "What's the best self-hosted project management tool with good subtask support?",
+      "createdAt": 1722588343,
+      "createdAtTransformedBySetter": "2024-08-02T08:45:43Z",
+      "createdAtTransformedByGetter": "2024-08-02T08:45:43Z",
+      "score": 32,
+      "numberOfComments": 27,
+      "url": "https://www.reddit.com/r/selfhosted/comments/1ei53hw/whats_the_best_selfhosted_project_management_tool/",
+      "ratio": 0.96,
+      "images": null,
+      "crosspostParents": null,
+      "flair": null,
+      "subredditAndAuthor": null
+    },
+    {
+      "id": "1ei54of",
+      "title": "Watchtower Alternative",
+      "createdAt": 1722588480,
+      "createdAtTransformedBySetter": "2024-08-02T08:48:00Z",
+      "createdAtTransformedByGetter": "2024-08-02T08:48:00Z",
+      "score": 20,
+      "numberOfComments": 30,
+      "url": "https://www.reddit.com/r/selfhosted/comments/1ei54of/watchtower_alternative/",
+      "ratio": 0.92,
+      "images": null,
+      "crosspostParents": null,
+      "flair": null,
       "subredditAndAuthor": null
     }
-  ]
+  ],
+  "totalPosts": 0
 }

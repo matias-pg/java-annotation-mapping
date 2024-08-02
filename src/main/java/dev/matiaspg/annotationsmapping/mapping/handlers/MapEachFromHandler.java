@@ -22,7 +22,7 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
         return MapEachFrom.class;
     }
 
-    public BiConsumer<JsonNode, Object> handleField(Field field, MappingContext<?> ctx) {
+    public BiConsumer<JsonNode, Object> createFieldMapper(Field field, MappingContext<?> ctx) {
         return Exceptions.wrap((node, instance) -> {
             Class<?> collectionType = field.getType();
             ensureCollection(collectionType);
@@ -49,7 +49,7 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
     }
 
     @Override
-    public BiConsumer<JsonNode, Object> handleMethod(Method method, MappingContext<?> ctx) {
+    public BiConsumer<JsonNode, Object> createMethodMapper(Method method, MappingContext<?> ctx) {
         return Exceptions.wrap((node, instance) -> {
             Class<?>[] parameterTypes = method.getParameterTypes();
             if (parameterTypes.length != 1) {
@@ -89,9 +89,11 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
 
     private static Object collect(Stream<?> stream, Class<?> collectionType) {
         // TODO: Collect arrays
-        /*if (collectionType.isArray()) {
-            return stream.toArray(collectionType);
-        }*/
+        if (collectionType.isArray()) {
+            // return stream.toArray(collectionType);
+            throw new UnsupportedOperationException(
+                "Mapping of " + collectionType + " is not supported for now");
+        }
 
         if (Set.class.isAssignableFrom(collectionType)) {
             return stream.collect(Collectors.toSet());
