@@ -74,8 +74,7 @@ public class RedditPost {
     }
 
     // Equivalent to the annotation above
-    // TODO: Decide which one to keep
-    // Just an example if you want to do something manually
+    // TODO: Decide which one to keep, this is already working
     @MapFrom("")
     public void mapCurrentObject(JsonNode node) {
         url = node.at("/data/url").asText();

@@ -5,8 +5,6 @@ import lombok.SneakyThrows;
 
 import java.lang.reflect.*;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
@@ -17,11 +15,6 @@ import java.util.stream.Stream;
  */
 @NoArgsConstructor
 public class ReflectionUtils {
-    // TODO: Evaluate if it´s really necessary to have this
-    // TODO: DELETE
-    private static final Pattern TYPE_PATTERN =
-        Pattern.compile("^(?<rawType>[\\w.]+)(?:<(?<itemType>[\\w.]+)>)?$");
-
     public static Field[] getClassFields(Class<?> clazz) {
         // To support inheritance
         Stream<Field> parentFields = clazz.getSuperclass() == null
@@ -91,8 +84,7 @@ public class ReflectionUtils {
             // TODO: Check if it works, I haven't tested generic arrays
             return toClass(genericArrayType.getGenericComponentType());
         }
-        // TODO: Delete this and throw mentioning it's unsupported
-        return parseRawType(type.getTypeName()).orElseThrow();
+        throw new UnsupportedOperationException("Unable to get raw type from " + type);
     }
 
     public static Optional<Class<?>> getItemType(Type type) {
@@ -108,8 +100,7 @@ public class ReflectionUtils {
             return Optional.of(toClass(
                 genericArrayType.getGenericComponentType()));
         }
-        // TODO: Delete this and throw mentioning it's unsupported
-        return parseItemType(type.getTypeName());
+        throw new UnsupportedOperationException("Unable to get item type from " + type);
     }
 
     @SneakyThrows(ClassNotFoundException.class)
@@ -118,30 +109,5 @@ public class ReflectionUtils {
             return clazz;
         }
         return Class.forName(type.getTypeName());
-    }
-
-    // TODO: Evaluate if it´s really necessary to have this, since we are
-    //  already able to identify the types
-    // TODO: DELETE
-    private static Optional<Class<?>> parseRawType(String typeName) {
-        Matcher matcher = TYPE_PATTERN.matcher(typeName);
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        return Exceptions.inOptional(() -> Class.forName(matcher.group("rawType")));
-    }
-
-    // TODO: Evaluate if it´s really necessary to have this, since we are
-    //  already able to identify the types
-    // TODO: DELETE
-    private static Optional<Class<?>> parseItemType(String typeName) {
-        Matcher matcher = TYPE_PATTERN.matcher(typeName);
-        if (!matcher.matches() || matcher.group("itemType") == null) {
-            return Optional.empty();
-        }
-
-        // TODO: Handle types with more than one generic type, e.g. Map<K, V>
-        return Exceptions.inOptional(() -> Class.forName(matcher.group("itemType")));
     }
 }
