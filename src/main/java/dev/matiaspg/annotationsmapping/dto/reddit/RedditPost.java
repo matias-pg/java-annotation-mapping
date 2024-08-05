@@ -26,7 +26,9 @@ public class RedditPost {
 
     @MapFrom("/data/created_utc")
     private Long createdAt;
-    private String createdAtTransformedBySetter; // Example only
+
+    @MapFrom("/data/edited")
+    private Long updatedAt;
 
     @MapFrom("/data/score")
     private Integer score;
@@ -34,19 +36,17 @@ public class RedditPost {
     @MapFrom("/data/num_comments")
     private Integer numberOfComments;
 
-    private String url;
-
     @MapFrom("/data/upvote_ratio")
     private Double ratio;
 
     @JsonIgnore
-    @MapFrom("/data/stickied")
+    @MapFrom(value = "/data/stickied", defaultValue = "false")
     private Boolean isStickied;
 
-    @MapEachFrom(value = "/data/preview/images", itemType = Image.class)
+    @MapEachFrom("/data/preview/images")
     private List<Image> images;
 
-    @MapEachFrom(value = "/data/crosspost_parent_list", itemType = RedditPost.class)
+    @MapEachFrom("/data/crosspost_parent_list")
     private List<RedditPost> crosspostParents;
 
     // TODO: Implement annotation
@@ -60,6 +60,11 @@ public class RedditPost {
     // Best use case: first name + last name
     @ConcatMapFrom(delimiter = "/", paths = {"/data/subreddit_name_prefixed", "/data/author"})
     private String subredditAndAuthor;
+
+    // These fields are set via a setter, see below
+    private String createdAtTransformedBySetter;
+    private String url;
+    private String thumbnail;
 
     // TODO: Implement annotation
     // Just an example if you want to do something manually
@@ -89,5 +94,19 @@ public class RedditPost {
         return DateTimeFormatter
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'")
             .format(LocalDateTime.ofEpochSecond(createdAt, 0, ZoneOffset.UTC));
+    }
+
+    // Example of mapping multiple values to one method, e.g. if you need to
+    // apply some logic to a field depending on the value of another field
+    // Note that the annotations are in the parameters!
+    public void setMultipleValues(
+        // If the field is null or missing, assume it's true
+        @MapFrom(value = "/data/over_18", defaultValue = "true") Boolean over18,
+        @MapFrom("/data/thumbnail") String thumbnail
+    ) {
+        // Only set the thumbnail of the post if it's safe for work (SFW)
+        if (!over18 && !"self".equals(thumbnail)) {
+            this.thumbnail = thumbnail;
+        }
     }
 }

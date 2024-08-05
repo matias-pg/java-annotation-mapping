@@ -13,10 +13,16 @@ public @interface MapEachFrom {
     /**
      * Class to which each item will be mapped.
      * <p>
-     * Ideally this should be retrieved from the field type, but Java removes
-     * generic types after compilation time *when no super class is being used*.
+     * Ideally this should be retrieved from the field type, but since Java
+     * removes generic types after compilation *when no super class is being
+     * used*, we have to use some "hacks" that can fail, in which case you
+     * would have to pass the type here
+     *
+     * @deprecated LOL. May be deleted in the future since doesn't seem
+     * necessary for now
      */
-    Class<?> itemType();
+    // TODO: DELETE
+    Class<?> itemType() default Object.class;
 
     /**
      * Whether to do the mapping in parallel.
@@ -29,6 +35,7 @@ public @interface MapEachFrom {
      */
     boolean parallel() default false;
 
+    // TODO: DELETE
     /*// TODO: Allow passing passing a class that implements Predicate<T>
     //  where T is the mapped class, or JsonNode to filter the raw nodes
     Predicate<JsonNode> filterBy();

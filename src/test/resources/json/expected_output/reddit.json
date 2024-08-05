@@ -1,11 +1,29 @@
 {
   "posts": [
     {
+      "id": "example",
+      "title": "An example with `null` URL to test the CustomJsonNodeFactory, and with `true` over_18 as default",
+      "createdAt": 0,
+      "createdAtTransformedBySetter": "1970-01-01T00:00:00Z",
+      "createdAtTransformedByGetter": "1970-01-01T00:00:00Z",
+      "updatedAt": 1693430311,
+      "score": 9999,
+      "numberOfComments": 9999,
+      "url": null,
+      "ratio": 1.0,
+      "images": null,
+      "crosspostParents": null,
+      "flair": null,
+      "subredditAndAuthor": null,
+      "thumbnail": null
+    },
+    {
       "id": "1ei8380",
       "title": "This Week in Self-Hosted (2 August 2024)",
       "createdAt": 1722599584,
       "createdAtTransformedBySetter": "2024-08-02T11:53:04Z",
       "createdAtTransformedByGetter": "2024-08-02T11:53:04Z",
+      "updatedAt": 0,
       "score": 187,
       "numberOfComments": 13,
       "url": "https://www.reddit.com/r/selfhosted/comments/1ei8380/this_week_in_selfhosted_2_august_2024/",
@@ -53,7 +71,8 @@
       ],
       "crosspostParents": null,
       "flair": null,
-      "subredditAndAuthor": null
+      "subredditAndAuthor": null,
+      "thumbnail": "https://safeforwork.com/thumbnail.png"
     },
     {
       "id": "1eic5sw",
@@ -61,6 +80,7 @@
       "createdAt": 1722610603,
       "createdAtTransformedBySetter": "2024-08-02T14:56:43Z",
       "createdAtTransformedByGetter": "2024-08-02T14:56:43Z",
+      "updatedAt": 0,
       "score": 69,
       "numberOfComments": 52,
       "url": "https://www.reddit.com/r/selfhosted/comments/1eic5sw/ente_vs_immich/",
@@ -68,7 +88,8 @@
       "images": null,
       "crosspostParents": null,
       "flair": null,
-      "subredditAndAuthor": null
+      "subredditAndAuthor": null,
+      "thumbnail": null
     },
     {
       "id": "1eigxzw",
@@ -76,6 +97,7 @@
       "createdAt": 1722622111,
       "createdAtTransformedBySetter": "2024-08-02T18:08:31Z",
       "createdAtTransformedByGetter": "2024-08-02T18:08:31Z",
+      "updatedAt": 0,
       "score": 60,
       "numberOfComments": 15,
       "url": "https://github.com/xpipe-io/xpipe",
@@ -83,7 +105,8 @@
       "images": null,
       "crosspostParents": null,
       "flair": null,
-      "subredditAndAuthor": null
+      "subredditAndAuthor": null,
+      "thumbnail": "https://b.thumbs.redditmedia.com/HhedvijuHdw4JV6vFL-KvZHOx-42QCPAypA_GXN72aw.jpg"
     },
     {
       "id": "1ei53hw",
@@ -91,6 +114,7 @@
       "createdAt": 1722588343,
       "createdAtTransformedBySetter": "2024-08-02T08:45:43Z",
       "createdAtTransformedByGetter": "2024-08-02T08:45:43Z",
+      "updatedAt": 0,
       "score": 32,
       "numberOfComments": 27,
       "url": "https://www.reddit.com/r/selfhosted/comments/1ei53hw/whats_the_best_selfhosted_project_management_tool/",
@@ -98,22 +122,8 @@
       "images": null,
       "crosspostParents": null,
       "flair": null,
-      "subredditAndAuthor": null
-    },
-    {
-      "id": "1ei54of",
-      "title": "Watchtower Alternative",
-      "createdAt": 1722588480,
-      "createdAtTransformedBySetter": "2024-08-02T08:48:00Z",
-      "createdAtTransformedByGetter": "2024-08-02T08:48:00Z",
-      "score": 20,
-      "numberOfComments": 30,
-      "url": "https://www.reddit.com/r/selfhosted/comments/1ei54of/watchtower_alternative/",
-      "ratio": 0.92,
-      "images": null,
-      "crosspostParents": null,
-      "flair": null,
-      "subredditAndAuthor": null
+      "subredditAndAuthor": null,
+      "thumbnail": null
     }
   ],
   "totalPosts": 0

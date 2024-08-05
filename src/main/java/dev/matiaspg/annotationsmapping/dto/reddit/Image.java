@@ -4,15 +4,14 @@ import dev.matiaspg.annotationsmapping.mapping.annotations.MapEachFrom;
 import dev.matiaspg.annotationsmapping.mapping.annotations.MapFrom;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class Image {
     @MapFrom("/source")
     private Source source;
 
-    @MapEachFrom(value = "/resolutions", itemType = Source.class)
-    private List<Source> resolutions;
+    // Works with array types too
+    @MapEachFrom("/resolutions")
+    private Source[] resolutions;
 
     // Nested classes are also supported
     @Data

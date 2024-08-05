@@ -9,6 +9,25 @@
       {
         "kind": "t3",
         "data": {
+          "subreddit": "selfhosted",
+          "title": "An example with `null` URL to test the CustomJsonNodeFactory, and with `true` over_18 as default",
+          "score": 9999,
+          "edited": 1693430311,
+          "created": 0,
+          "id": "example",
+          "author": "kmisterk",
+          "num_comments": 9999,
+          "upvote_ratio": 1,
+          "stickied": false,
+          "url": null,
+          "created_utc": 0,
+          "over_18": null,
+          "thumbnail": "https://notsafeforwork.com/thumbnail.png"
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
           "approved_at_utc": null,
           "subreddit": "selfhosted",
           "selftext": "#Welcome to /r/selfhosted!\n\nWe thank you for taking the time to check out the subreddit here! \n\n##Self-Hosting\n\nThe concept in which you host your own applications, data, and more. Taking away the \"unknown\" factor in how your data is managed and stored, this provides those with the willingness to learn and the mind to do so to take control of their data without losing the functionality of services they otherwise use frequently. \n\n##Some Examples\n\nFor instance, if you use dropbox, but are not fond of having your most sensitive data stored in a data-storage container that you do not have direct control over, you may consider NextCloud\n\nOr let's say you're used to hosting a blog out of a Blogger platform, but would rather have your own customization and flexibility of controlling your updates? Why not give WordPress a go. \n\nThe possibilities are endless and it all starts here with a server. \n\n##Subreddit Wiki\n\nThere have been varying forms of a wiki to take place. While currently, there is no *officially* hosted wiki, we do have a [github repository](https://github.com/r-selfhosted/wiki). There is also at least one unofficial mirror that showcases the live version of that repo, listed on the index of the [reddit-based wiki](/r/selfhosted/wiki)\n\n##Since You're Here...\n\nWhile you're here, take a moment to get acquainted with our few but important **[rules](/r/selfhosted/wiki/rules)**\n\nWhen posting, please apply an appropriate flair to your post. If an appropriate flair is not found, please let us know! If it suits the sub and doesn't fit in another category, we will get it added! **[Message the Mods](https://www.reddit.com/message/compose?to=%2Fr%2Fselfhosted)** to get that started.\n\nIf you're brand new to the sub, we highly recommend taking a moment to browse a couple of our awesome self-hosted and system admin tools lists.\n\n[Awesome Self-Hosted App List](https://github.com/Kickball/awesome-selfhosted)\n\n[Awesome Sys-Admin App List](https://github.com/n1trux/awesome-sysadmin)\n\n[Awesome Docker App List](https://github.com/veggiemonk/awesome-docker)\n\nIn any case, lot's to take in, lot's to learn. Don't be disappointed if you don't catch on to any given aspect of self-hosting right away. We're available to help! \n\nAs always, happy (self)hosting!",
@@ -322,7 +341,7 @@
           "approved_by": null,
           "is_created_from_ads_ui": false,
           "author_premium": false,
-          "thumbnail": "self",
+          "thumbnail": "https://safeforwork.com/thumbnail.png",
           "edited": false,
           "author_flair_css_class": null,
           "author_flair_richtext": [],

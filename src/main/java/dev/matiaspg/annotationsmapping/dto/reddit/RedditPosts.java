@@ -22,7 +22,7 @@ public class RedditPosts {
 
     // Transform the list before setting it
     // This could also be done in a getter, but with a setter everything is done at once
-    @MapEachFrom(value = "/data/children", itemType = RedditPost.class)
+    @MapEachFrom("/data/children")
     private void setPosts(List<RedditPost> posts) {
         this.posts = posts.stream()
             // Ignore posts that are stickied

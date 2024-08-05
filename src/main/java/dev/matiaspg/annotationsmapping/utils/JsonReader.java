@@ -13,8 +13,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JsonReader {
-    private static final ObjectMapper mapper = new ObjectMapper();
-
+    private final ObjectMapper mapper;
     private final ResourceLoader resourceLoader;
 
     @SneakyThrows(IOException.class)

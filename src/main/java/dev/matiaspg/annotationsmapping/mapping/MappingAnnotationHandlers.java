@@ -4,10 +4,12 @@ import dev.matiaspg.annotationsmapping.mapping.handlers.MappingAnnotationHandler
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Component
 public class MappingAnnotationHandlers {
@@ -27,7 +29,17 @@ public class MappingAnnotationHandlers {
         }
     }
 
-    public Optional<MappingAnnotationHandler<?>> getHandler(Class<?> annotation) {
-        return Optional.ofNullable(handlersMap.get(annotation));
+    /**
+     * Gets only handlers for annotations we care, ignoring the rest,
+     * e.g. @Nonnull or @Nullable
+     *
+     * @param annotations The annotations to which a handler will be get
+     * @return A stream of handlers
+     */
+    public Stream<? extends MappingAnnotationHandler<?>> getHandlers(Annotation[] annotations) {
+        return Stream.of(annotations)
+            .map(Annotation::annotationType)
+            .map(handlersMap::get)
+            .filter(Objects::nonNull);
     }
 }

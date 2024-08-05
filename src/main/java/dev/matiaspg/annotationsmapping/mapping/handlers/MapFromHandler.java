@@ -1,14 +1,17 @@
 package dev.matiaspg.annotationsmapping.mapping.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import dev.matiaspg.annotationsmapping.mapping.MappingContext;
 import dev.matiaspg.annotationsmapping.mapping.annotations.MapFrom;
-import dev.matiaspg.annotationsmapping.utils.Exceptions;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.function.BiConsumer;
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
+import static dev.matiaspg.annotationsmapping.mapping.annotations.MapFrom.NO_DEFAULT_VALUE;
 
 @Component
 public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
@@ -17,44 +20,48 @@ public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
         return MapFrom.class;
     }
 
-    public BiConsumer<JsonNode, Object> createFieldMapper(Field field, MappingContext<?> ctx) {
-        return Exceptions.wrap((node, instance) -> {
-            MapFrom annotation = field.getAnnotation(getSupportedAnnotation());
-            Class<?> type = field.getType();
+    @Override
+    public Function<JsonNode, Optional<Object>> createValueGetter(
+        Type type, MapFrom annotation, MappingContext<?> ctx) {
+        return node -> {
+            JsonNode valueNode = getValueNode(node, annotation);
 
-            // Don't do anything if the node was not found
-            JsonNode valueNode = node.at(annotation.value());
+            // Don't do anything if the node was not found and there's no default
             if (valueNode.isMissingNode()) {
-                return;
+                return Optional.empty();
             }
 
-            // Set the mapped value to the field
-            Object value = ctx.mapper().treeToValue(valueNode, type);
-            field.set(instance, value);
-        });
+            return getValue(valueNode, (Class<?>) type)
+                .or(() -> Optional.ofNullable(
+                    // TODO: Prevent deserializing data before executing mappers.
+                    //  Test it with RedditPost#images and Image#source
+                    ctx.mapper().convertValue(valueNode, (Class<?>) type)));
+        };
     }
 
-    @Override
-    public BiConsumer<JsonNode, Object> createMethodMapper(Method method, MappingContext<?> ctx) {
-        return Exceptions.wrap((node, instance) -> {
-            Class<?>[] parameterTypes = method.getParameterTypes();
-            if (parameterTypes.length != 1) {
-                throw new IllegalStateException(
-                    getAnnotationName() + " can only be used on methods with one parameter");
-            }
+    // TODO: Improve this! There are better ways to do the same
+    private static Optional<Object> getValue(JsonNode node, Class<?> type) {
+        Map<Class<?>, Function<JsonNode, Object>> map = Map.of(
+            String.class, JsonNode::asText,
+            Boolean.class, JsonNode::asBoolean,
+            Long.class, JsonNode::asLong,
+            Integer.class, JsonNode::asInt,
+            Double.class, JsonNode::asDouble
+        );
+        return Optional.ofNullable(map.get(type))
+            .map(getter -> getter.apply(node));
+    }
 
-            MapFrom annotation = method.getAnnotation(getSupportedAnnotation());
-            Class<?> type = parameterTypes[0];
+    private JsonNode getValueNode(JsonNode node, MapFrom annotation) {
+        JsonNode valueNode = node.at(annotation.value());
 
-            // Don't do anything if the node was not found
-            JsonNode valueNode = node.at(annotation.value());
-            if (valueNode.isMissingNode()) {
-                return;
-            }
+        if ((valueNode.isMissingNode() || valueNode.isNull())
+            && (!NO_DEFAULT_VALUE.equals(annotation.defaultValue())
+            || annotation.allowDefaultEmptyString())
+        ) {
+            return TextNode.valueOf(annotation.defaultValue());
+        }
 
-            // Invoke the method passing the mapped value
-            Object value = ctx.mapper().treeToValue(valueNode, type);
-            method.invoke(instance, value);
-        });
+        return valueNode;
     }
 }

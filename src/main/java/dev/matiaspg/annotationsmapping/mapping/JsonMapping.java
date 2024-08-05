@@ -2,26 +2,28 @@ package dev.matiaspg.annotationsmapping.mapping;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.matiaspg.annotationsmapping.utils.ReflectionUtils;
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Stream;
+
+import static dev.matiaspg.annotationsmapping.utils.ReflectionUtils.*;
 
 @Component
 @RequiredArgsConstructor
 public class JsonMapping {
-    // TODO: Configure the ObjectMapper to return null by default, instead of "null"
-    private static final ObjectMapper om = new ObjectMapper();
-
+    private final ObjectMapper om;
     private final MappingAnnotationHandlers handlers;
     private final ClassMappers classMappersCache;
 
@@ -54,82 +56,62 @@ public class JsonMapping {
 
         // Annotated fields
         for (Field field : getClassFields(targetClass)) {
-            Stream.of(field.getAnnotations())
-                // Check if it's a mapping annotation, e.g. @MapFrom
-                .map(annotation -> handlers.getHandler(annotation.annotationType()))
-                // If it's not a mapping annotation, continue with the rest
-                .filter(Optional::isPresent).map(Optional::get)
-                // Otherwise, create a field mapper
+            // Create a field mapper
+            handlers.getHandlers(field.getAnnotations())
                 .map(handler -> handler.createFieldMapper(field, ctx))
-                .forEach(mapper -> mappers.add((input, instance) -> {
-                    boolean wasAccessible = field.canAccess(instance);
-                    try {
-                        // Temporarily set the field as accessible so that
-                        // it can be modified
-                        field.setAccessible(true);
-
-                        mapper.accept(input, instance);
-                    } finally {
-                        // Restore the previous value
-                        field.setAccessible(wasAccessible);
-                    }
-                }));
+                .forEach(mappers::add);
         }
 
-        // Annotated methods
         for (Method method : getClassMethods(targetClass)) {
-            Stream.of(method.getAnnotations())
-                // Check if it's a mapping annotation, e.g. @MapFrom
-                .map(annotation -> handlers.getHandler(annotation.annotationType()))
-                // If it's not a mapping annotation, continue with the rest
-                .filter(Optional::isPresent).map(Optional::get)
+            // Annotated methods
+            handlers.getHandlers(method.getAnnotations())
                 .map(handler -> handler.createMethodMapper(method, ctx))
                 // Call the setter with the current node
-                .forEach(mapper -> mappers.add((input, instance) -> {
-                    boolean wasAccessible = method.canAccess(instance);
-                    try {
-                        // Temporarily set the method as accessible so that
-                        // it can be invoked
-                        method.setAccessible(true);
+                .forEach(mappers::add);
 
-                        mapper.accept(input, instance);
-                    } finally {
-                        // Restore the previous value
-                        method.setAccessible(wasAccessible);
-                    }
-                }));
+            // Methods with annotated parameters
+            if (hasAnnotatedParameters(method)) {
+                // Cache the getters
+                List<Function<JsonNode, Optional<Object>>> getters =
+                    Stream.of(method.getParameters())
+                        .map(param -> createParameterValueGetter(param, ctx)).toList();
+
+                // Call the previously created getters
+                mappers.add((node, instance) -> {
+                    Object[] mappedParams = getters.stream()
+                        .map(getter -> getter.apply(node).orElse(null)).toArray();
+
+                    // Invoke the method passing the mapped values
+                    ReflectionUtils.invokeMethod(instance, method, mappedParams);
+                });
+            }
+
+            // TODO: Ensure methods have annotations on them or on their
+            //  parameters, but not both
         }
 
         return mappers;
     }
 
-    private static Field[] getClassFields(Class<?> clazz) {
-        // To support inheritance
-        Stream<Field> parentFields = clazz.getSuperclass() == null
-            ? Stream.empty()
-            : Stream.of(getClassFields(clazz.getSuperclass()));
-        Stream<Field> classFields = Stream.of(clazz.getDeclaredFields());
-        // Return an array with fields from the class and its ancestors
-        return Stream.concat(parentFields, classFields).toArray(Field[]::new);
+    private boolean hasAnnotatedParameters(Method method) {
+        return Stream.of(method.getParameters())
+            // Check if a param has a mapping annotation, e.g. @MapFrom
+            .flatMap(parameter -> handlers
+                .getHandlers(parameter.getAnnotations()))
+            .findFirst().isPresent();
     }
 
-    private static Method[] getClassMethods(Class<?> clazz) {
-        // To support inheritance
-        Stream<Method> parentMethods = clazz.getSuperclass() == null
-            ? Stream.empty()
-            : Stream.of(getClassMethods(clazz.getSuperclass()));
-        Stream<Method> classMethods = Stream.of(clazz.getDeclaredMethods());
-        // Return an array with methods from the class and its ancestors
-        return Stream.concat(parentMethods, classMethods).toArray(Method[]::new);
-    }
-
-    @SneakyThrows({
-        NoSuchMethodException.class,
-        InvocationTargetException.class,
-        InstantiationException.class,
-        IllegalAccessException.class,
-    })
-    private <T> T createInstance(Class<T> targetClass) {
-        return targetClass.getDeclaredConstructor().newInstance();
+    @Nonnull
+    private Function<JsonNode, Optional<Object>> createParameterValueGetter(
+        Parameter parameter, MappingContext<?> ctx) {
+        return handlers
+            .getHandlers(parameter.getAnnotations()).findFirst()
+            // Create a value getter for the first mapping annotation of the field
+            .map(handler -> handler
+                .createValueGetter(parameter.getParameterizedType(), parameter, ctx))
+            // Show a descriptive error if the parameter doesn't have any annotation
+            .orElseThrow(() -> new IllegalArgumentException("The `" + parameter.getName()
+                + "` parameter in `" + parameter.getDeclaringExecutable().getName() + "()`"
+                + " doesn't have any mapping annotation: either add one, or remove the parameter"));
     }
 }

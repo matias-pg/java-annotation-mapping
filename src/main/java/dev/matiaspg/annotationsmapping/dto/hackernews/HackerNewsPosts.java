@@ -13,6 +13,6 @@ import java.util.List;
  */
 @Data
 public class HackerNewsPosts {
-    @MapEachFrom(value = "/hits", itemType = HackerNewsPost.class)
+    @MapEachFrom("/hits")
     private List<HackerNewsPost> posts;
 }
