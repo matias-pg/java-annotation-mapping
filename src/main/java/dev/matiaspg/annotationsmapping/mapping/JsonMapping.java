@@ -38,6 +38,7 @@ public class JsonMapping {
                 return getMappers(targetClass, ctx);
             });
 
+        // Create an instance of the target class and apply the mappers to it
         T instance = createInstance(targetClass);
         mappers.forEach(mapper -> mapper.accept(json, instance));
 
@@ -56,28 +57,26 @@ public class JsonMapping {
 
         // Annotated fields
         for (Field field : getClassFields(targetClass)) {
-            // Create a field mapper
             handlers.getHandlers(field.getAnnotations())
                 .map(handler -> handler.createFieldMapper(field, ctx))
                 .forEach(mappers::add);
         }
 
         for (Method method : getClassMethods(targetClass)) {
-            // Annotated methods
+            // Annotated methods (e.g. setters)
             handlers.getHandlers(method.getAnnotations())
                 .map(handler -> handler.createMethodMapper(method, ctx))
-                // Call the setter with the current node
                 .forEach(mappers::add);
 
             // Methods with annotated parameters
             if (hasAnnotatedParameters(method)) {
-                // Cache the getters
+                // Create "value getters" for each method parameter
                 List<Function<JsonNode, Optional<Object>>> getters =
                     Stream.of(method.getParameters())
                         .map(param -> createParameterValueGetter(param, ctx)).toList();
 
-                // Call the previously created getters
                 mappers.add((node, instance) -> {
+                    // Call the previously created getters
                     Object[] mappedParams = getters.stream()
                         .map(getter -> getter.apply(node).orElse(null)).toArray();
 
