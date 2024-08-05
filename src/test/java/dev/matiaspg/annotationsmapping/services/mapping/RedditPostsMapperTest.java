@@ -1,12 +1,12 @@
 package dev.matiaspg.annotationsmapping.services.mapping;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import dev.matiaspg.annotationsmapping.dto.reddit.RedditPosts;
 import dev.matiaspg.annotationsmapping.mapping.JsonMapping;
 import dev.matiaspg.annotationsmapping.utils.JsonReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.test.StepVerifier;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
@@ -25,10 +25,11 @@ public class RedditPostsMapperTest {
     @Test
     void mapJson() {
         JsonNode posts = jsonReader.readJson("input/reddit/selfhost");
-        RedditPosts result = jsonMapping.mapJson(posts, mapper.getTargetClass());
 
-        JsonNode expected = jsonReader.readJson("expected_output/reddit");
+        StepVerifier.create(mapper.map(posts)).assertNext(result -> {
+            JsonNode expected = jsonReader.readJson("expected_output/reddit");
 
-        assertThatJson(result).isEqualTo(expected);
+            assertThatJson(result).isEqualTo(expected);
+        }).verifyComplete();
     }
 }
