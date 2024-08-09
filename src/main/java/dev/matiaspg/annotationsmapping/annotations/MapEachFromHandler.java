@@ -39,9 +39,7 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
         Class<?> collectionType = ReflectionUtils.getRawType(type);
         Class<?> itemType = getItemType(type);
         Function<Stream<?>, Object> collector = createCollector(collectionType);
-        ItemFilter filter = AllowAllItems.class.equals(annotation.itemFilter())
-            ? null
-            : ReflectionUtils.createInstance(annotation.itemFilter());
+        ItemFilter filter = getItemFilter(annotation);
 
         return node -> {
             JsonNode iterableNode = node.at(annotation.value());
@@ -89,5 +87,15 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
         } else {
             return stream -> stream.collect(Collectors.toList());
         }
+    }
+
+    private ItemFilter getItemFilter(MapEachFrom annotation) {
+        if (AllowAllItems.class.equals(annotation.itemFilter())) {
+            return null;
+        }
+        return ReflectionUtils.createInstance(
+            annotation.itemFilter(),
+            (Object[]) annotation.itemFilterArgs()
+        );
     }
 }

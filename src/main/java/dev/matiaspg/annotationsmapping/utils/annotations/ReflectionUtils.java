@@ -42,8 +42,11 @@ public class ReflectionUtils {
         InstantiationException.class,
         IllegalAccessException.class,
     })
-    public static <T> T createInstance(Class<T> targetClass) {
-        return targetClass.getDeclaredConstructor().newInstance();
+    public static <T> T createInstance(Class<T> targetClass, Object... args) {
+        Class<?>[] types = Stream.of(args)
+            .map(arg -> arg == null ? null : arg.getClass())
+            .toArray(Class<?>[]::new);
+        return targetClass.getDeclaredConstructor(types).newInstance(args);
     }
 
     @SneakyThrows(IllegalAccessException.class)

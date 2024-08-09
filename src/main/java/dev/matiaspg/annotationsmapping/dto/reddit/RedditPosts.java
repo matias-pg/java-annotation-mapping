@@ -1,10 +1,9 @@
 package dev.matiaspg.annotationsmapping.dto.reddit;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import dev.matiaspg.annotationsmapping.annotations.AfterMapping;
 import dev.matiaspg.annotationsmapping.annotations.MapEachFrom;
 import dev.matiaspg.annotationsmapping.dto.hackernews.HackerNewsPosts;
-import dev.matiaspg.annotationsmapping.utils.annotations.types.ItemFilter;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ItemFilter.ExcludeIfTrue;
 import lombok.Data;
 
 import java.util.Comparator;
@@ -24,7 +23,16 @@ public class RedditPosts {
     // Transform the list before setting it
     // This could also be done in a getter, but with a setter everything is done once
     // Note that the filter is applied before mapping anything, which is faster
-    @MapEachFrom(value = "/data/children", itemFilter = NonStickiedPosts.class)
+    @MapEachFrom(
+        value = "/data/children",
+        // Ignore posts that are stickied
+        // This could also be a custom filter class (in fact it was before,
+        // check the previous commit), but the benefit of using a reusable
+        // filter with params, is that you can replace those parameters by
+        // configuration, without having to change the code
+        itemFilter = ExcludeIfTrue.class,
+        itemFilterArgs = "/data/stickied"
+    )
     private void setPosts(List<RedditPost> posts) {
         this.posts = posts.stream()
             // Put the posts with higher score first
@@ -39,13 +47,5 @@ public class RedditPosts {
     private void doSomething() {
         // Just an example if you want to do something after everything was mapped
         totalPosts = posts.size();
-    }
-
-    public static class NonStickiedPosts implements ItemFilter {
-        @Override
-        public boolean test(JsonNode jsonNode) {
-            // Ignore posts that are stickied
-            return !jsonNode.at("/data/stickied").asBoolean();
-        }
     }
 }

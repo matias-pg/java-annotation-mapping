@@ -27,4 +27,9 @@ public @interface MapEachFrom {
      * Class used to filter the items to be mapped.
      */
     Class<? extends ItemFilter> itemFilter() default ItemFilter.AllowAllItems.class;
+
+    /**
+     * Arguments to be passed when initializing the filter class.
+     */
+    String[] itemFilterArgs() default {};
 }
