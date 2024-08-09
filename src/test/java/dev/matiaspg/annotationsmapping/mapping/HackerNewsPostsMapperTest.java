@@ -1,7 +1,6 @@
-package dev.matiaspg.annotationsmapping.services.mapping;
+package dev.matiaspg.annotationsmapping.mapping;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import dev.matiaspg.annotationsmapping.mapping.JsonMapping;
 import dev.matiaspg.annotationsmapping.utils.JsonReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 public class HackerNewsPostsMapperTest {
     @Autowired
     private JsonReader jsonReader;
-
-    @Autowired
-    private JsonMapping jsonMapping;
 
     @Autowired
     private HackerNewsPostsMapper mapper;

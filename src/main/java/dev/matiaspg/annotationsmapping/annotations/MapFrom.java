@@ -1,4 +1,4 @@
-package dev.matiaspg.annotationsmapping.mapping.annotations;
+package dev.matiaspg.annotationsmapping.annotations;
 
 import com.fasterxml.jackson.databind.node.TextNode;
 
@@ -22,9 +22,11 @@ public @interface MapFrom {
     String defaultValue() default NO_DEFAULT_VALUE;
 
     /**
-     * Since an empty string is used to indicate that you don't want to have a
-     * default value, by setting this to true you will be able to use an empty
-     * string as a default value.
+     * Whether you want to use an empty string as a default value.
+     *
+     * @implNote Since an empty string is used to indicate that you don't want
+     * a default value, by setting this to true an empty string will be used as
+     * a default value.
      */
-    boolean allowDefaultEmptyString() default false;
+    boolean defaultEmptyString() default false;
 }

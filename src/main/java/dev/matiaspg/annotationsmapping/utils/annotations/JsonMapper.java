@@ -1,8 +1,9 @@
-package dev.matiaspg.annotationsmapping.mapping;
+package dev.matiaspg.annotationsmapping.utils.annotations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.matiaspg.annotationsmapping.utils.ReflectionUtils;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueMapper;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,27 +14,24 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static dev.matiaspg.annotationsmapping.utils.ReflectionUtils.*;
+import static dev.matiaspg.annotationsmapping.utils.annotations.ReflectionUtils.*;
 
 @Component
 @RequiredArgsConstructor
-public class JsonMapping {
+public class JsonMapper {
     private final ObjectMapper om;
     private final MappingAnnotationHandlers handlers;
-    private final ClassMappers classMappersCache;
+    private final ValueMappers valueMappersCache;
 
-    public <T> T mapJson(JsonNode json, Class<T> targetClass) {
-        Collection<BiConsumer<JsonNode, Object>> mappers = classMappersCache
+    public <T> T map(JsonNode json, Class<T> targetClass) {
+        Collection<ValueMapper> mappers = valueMappersCache
             // Cache the mappers since they can be reused
             .getOrCreateMapper(targetClass, () -> {
-                MappingContext<T> ctx = MappingContext.<T>builder()
+                MappingContext ctx = MappingContext.<T>builder()
                     .mapper(om)
-                    .recursive(this::mapJson)
+                    .recursive(this::map)
                     .build();
                 return getMappers(targetClass, ctx);
             });
@@ -51,9 +49,10 @@ public class JsonMapping {
         //  and perhaps (?) more efficient
     }
 
-    private <T> Collection<BiConsumer<JsonNode, Object>> getMappers(
-        Class<T> targetClass, MappingContext<T> ctx) {
-        List<BiConsumer<JsonNode, Object>> mappers = new ArrayList<>();
+    private <T> Collection<ValueMapper> getMappers(
+        Class<T> targetClass, MappingContext ctx
+    ) {
+        List<ValueMapper> mappers = new ArrayList<>();
 
         // Annotated fields
         for (Field field : getClassFields(targetClass)) {
@@ -71,9 +70,8 @@ public class JsonMapping {
             // Methods with annotated parameters
             if (hasAnnotatedParameters(method)) {
                 // Create "value getters" for each method parameter
-                List<Function<JsonNode, Optional<Object>>> getters =
-                    Stream.of(method.getParameters())
-                        .map(param -> createParameterValueGetter(param, ctx)).toList();
+                List<ValueGetter> getters = Stream.of(method.getParameters())
+                    .map(param -> createParameterValueGetter(param, ctx)).toList();
 
                 mappers.add((node, instance) -> {
                     // Call the previously created getters
@@ -101,8 +99,9 @@ public class JsonMapping {
     }
 
     @Nonnull
-    private Function<JsonNode, Optional<Object>> createParameterValueGetter(
-        Parameter parameter, MappingContext<?> ctx) {
+    private ValueGetter createParameterValueGetter(
+        Parameter parameter, MappingContext ctx
+    ) {
         return handlers
             .getHandlers(parameter.getAnnotations()).findFirst()
             // Create a value getter for the first mapping annotation of the field

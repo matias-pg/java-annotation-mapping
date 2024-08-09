@@ -1,7 +1,7 @@
 package dev.matiaspg.annotationsmapping.dto.hackernews;
 
+import dev.matiaspg.annotationsmapping.annotations.MapEachFrom;
 import dev.matiaspg.annotationsmapping.dto.reddit.RedditPosts;
-import dev.matiaspg.annotationsmapping.mapping.annotations.MapEachFrom;
 import lombok.Data;
 
 import java.util.List;

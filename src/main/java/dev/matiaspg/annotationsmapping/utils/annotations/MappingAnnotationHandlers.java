@@ -1,6 +1,5 @@
-package dev.matiaspg.annotationsmapping.mapping;
+package dev.matiaspg.annotationsmapping.utils.annotations;
 
-import dev.matiaspg.annotationsmapping.mapping.handlers.MappingAnnotationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,8 @@ public class MappingAnnotationHandlers {
 
             // Ensure an annotation has only one handler
             if (handlersMap.containsKey(annotation)) {
-                throw new IllegalStateException("The annotation " + annotation.getSimpleName() + " has more than one handler");
+                throw new IllegalStateException("The annotation "
+                    + annotation.getSimpleName() + " has more than one handler");
             }
 
             handlersMap.put(annotation, handler);

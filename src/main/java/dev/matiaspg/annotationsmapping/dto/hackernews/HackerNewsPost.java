@@ -1,7 +1,7 @@
 package dev.matiaspg.annotationsmapping.dto.hackernews;
 
+import dev.matiaspg.annotationsmapping.annotations.MapFrom;
 import dev.matiaspg.annotationsmapping.dto.reddit.RedditPost;
-import dev.matiaspg.annotationsmapping.mapping.annotations.MapFrom;
 import lombok.Data;
 
 /**

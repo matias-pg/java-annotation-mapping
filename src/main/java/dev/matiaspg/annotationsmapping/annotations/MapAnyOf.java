@@ -1,4 +1,4 @@
-package dev.matiaspg.annotationsmapping.mapping.annotations;
+package dev.matiaspg.annotationsmapping.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

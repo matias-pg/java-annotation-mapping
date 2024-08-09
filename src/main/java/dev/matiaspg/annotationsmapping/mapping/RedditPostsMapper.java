@@ -1,9 +1,8 @@
-package dev.matiaspg.annotationsmapping.services.mapping;
+package dev.matiaspg.annotationsmapping.mapping;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import dev.matiaspg.annotationsmapping.dto.reddit.RedditPosts;
-import dev.matiaspg.annotationsmapping.mapping.JsonMapping;
-import dev.matiaspg.annotationsmapping.mapping.Mapper;
+import dev.matiaspg.annotationsmapping.utils.annotations.JsonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -11,11 +10,11 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class RedditPostsMapper implements Mapper<RedditPosts> {
-    private final JsonMapping jsonMapping;
+    private final JsonMapper jsonMapper;
 
     @Override
     public Mono<RedditPosts> map(JsonNode input) {
         return Mono.fromSupplier(() ->
-            jsonMapping.mapJson(input, RedditPosts.class));
+            jsonMapper.map(input, RedditPosts.class));
     }
 }

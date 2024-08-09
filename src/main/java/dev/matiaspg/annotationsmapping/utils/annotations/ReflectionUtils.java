@@ -1,5 +1,6 @@
-package dev.matiaspg.annotationsmapping.utils;
+package dev.matiaspg.annotationsmapping.utils.annotations;
 
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
  * <li> {@link org.springframework.util.ClassUtils}
  * <li> {@link org.springframework.util.ReflectionUtils}
  */
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.NONE)
 public class ReflectionUtils {
     public static Field[] getClassFields(Class<?> clazz) {
         // To support inheritance

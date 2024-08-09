@@ -2,8 +2,8 @@ package dev.matiaspg.annotationsmapping.dto.reddit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
+import dev.matiaspg.annotationsmapping.annotations.*;
 import dev.matiaspg.annotationsmapping.dto.hackernews.HackerNewsPost;
-import dev.matiaspg.annotationsmapping.mapping.annotations.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package dev.matiaspg.annotationsmapping.dto.reddit;
 
-import dev.matiaspg.annotationsmapping.mapping.annotations.MapEachFrom;
-import dev.matiaspg.annotationsmapping.mapping.annotations.MapFrom;
+import dev.matiaspg.annotationsmapping.annotations.MapEachFrom;
+import dev.matiaspg.annotationsmapping.annotations.MapFrom;
 import lombok.Data;
 
 @Data

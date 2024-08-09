@@ -1,8 +1,7 @@
-package dev.matiaspg.annotationsmapping.mapping.handlers;
+package dev.matiaspg.annotationsmapping.utils.annotations;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import dev.matiaspg.annotationsmapping.mapping.MappingContext;
-import dev.matiaspg.annotationsmapping.utils.ReflectionUtils;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueMapper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,10 +9,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public interface MappingAnnotationHandler<T extends Annotation> {
+    AnnotationsProvider getAnnotationsProvider();
+
     Class<T> getSupportedAnnotation();
 
     default String getAnnotationName() {
@@ -21,29 +20,29 @@ public interface MappingAnnotationHandler<T extends Annotation> {
     }
 
     default T getAnnotation(Field field) {
-        return field.getAnnotation(getSupportedAnnotation());
+        return getAnnotationsProvider().getAnnotation(field, getSupportedAnnotation());
     }
 
     default T getAnnotation(Method method) {
-        return method.getAnnotation(getSupportedAnnotation());
+        return getAnnotationsProvider().getAnnotation(method, getSupportedAnnotation());
     }
 
     default T getAnnotation(Parameter parameter) {
-        return parameter.getAnnotation(getSupportedAnnotation());
+        return getAnnotationsProvider().getAnnotation(parameter, getSupportedAnnotation());
     }
 
     // Instead of retrieving the value directly, create a "getter" so that
     // reflection info can be cached
-    default Function<JsonNode, Optional<Object>> createValueGetter(
-        Type type, T annotation, MappingContext<?> ctx) {
+    default ValueGetter createValueGetter(
+        Type type, T annotation, MappingContext ctx) {
         // An empty optional by default since in the future some handlers will
         // not return anything, such as the handler of @AfterMapping
         // Note: if that happens, isn't it better to segregate interfaces?
         return node -> Optional.empty();
     }
 
-    default Function<JsonNode, Optional<Object>> createValueGetter(
-        Type type, Parameter param, MappingContext<?> ctx) {
+    default ValueGetter createValueGetter(
+        Type type, Parameter param, MappingContext ctx) {
         return createValueGetter(type, getAnnotation(param), ctx);
     }
 
@@ -54,8 +53,8 @@ public interface MappingAnnotationHandler<T extends Annotation> {
      * @param ctx   Mapping context
      * @return The function
      */
-    default BiConsumer<JsonNode, Object> createFieldMapper(Field field, MappingContext<?> ctx) {
-        Function<JsonNode, Optional<Object>> valueGetter =
+    default ValueMapper createFieldMapper(Field field, MappingContext ctx) {
+        ValueGetter valueGetter =
             createValueGetter(field.getGenericType(), getAnnotation(field), ctx);
 
         return (node, instance) -> {
@@ -72,14 +71,14 @@ public interface MappingAnnotationHandler<T extends Annotation> {
      * @param ctx    Mapping context
      * @return The function
      */
-    default BiConsumer<JsonNode, Object> createMethodMapper(Method method, MappingContext<?> ctx) {
+    default ValueMapper createMethodMapper(Method method, MappingContext ctx) {
         Type[] parameterTypes = method.getGenericParameterTypes();
         if (parameterTypes.length != 1) {
             throw new IllegalStateException(
                 getAnnotationName() + " can only be used on methods with one parameter");
         }
 
-        Function<JsonNode, Optional<Object>> valueGetter =
+        ValueGetter valueGetter =
             createValueGetter(parameterTypes[0], getAnnotation(method), ctx);
 
         return (node, instance) -> {

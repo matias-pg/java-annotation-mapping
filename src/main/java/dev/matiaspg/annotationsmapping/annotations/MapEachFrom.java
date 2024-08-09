@@ -1,4 +1,6 @@
-package dev.matiaspg.annotationsmapping.mapping.annotations;
+package dev.matiaspg.annotationsmapping.annotations;
+
+import dev.matiaspg.annotationsmapping.utils.annotations.types.ItemFilter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,4 +22,9 @@ public @interface MapEachFrom {
      * I suggest doing a benchmark first before enabling this.
      */
     boolean parallel() default false;
+
+    /**
+     * Class used to filter the items to be mapped.
+     */
+    Class<? extends ItemFilter> itemFilter() default ItemFilter.AllowAllItems.class;
 }
