@@ -12,7 +12,6 @@
       "url": null,
       "ratio": 1.0,
       "images": null,
-      "crosspostParents": null,
       "flair": null,
       "subredditAndAuthor": null,
       "thumbnail": null
@@ -69,7 +68,6 @@
           ]
         }
       ],
-      "crosspostParents": null,
       "flair": null,
       "subredditAndAuthor": null,
       "thumbnail": "https://safeforwork.com/thumbnail.png"
@@ -86,7 +84,6 @@
       "url": "https://www.reddit.com/r/selfhosted/comments/1eic5sw/ente_vs_immich/",
       "ratio": 0.95,
       "images": null,
-      "crosspostParents": null,
       "flair": null,
       "subredditAndAuthor": null,
       "thumbnail": null
@@ -103,7 +100,6 @@
       "url": "https://github.com/xpipe-io/xpipe",
       "ratio": 0.93,
       "images": null,
-      "crosspostParents": null,
       "flair": null,
       "subredditAndAuthor": null,
       "thumbnail": "https://b.thumbs.redditmedia.com/HhedvijuHdw4JV6vFL-KvZHOx-42QCPAypA_GXN72aw.jpg"
@@ -120,7 +116,6 @@
       "url": "https://www.reddit.com/r/selfhosted/comments/1ei53hw/whats_the_best_selfhosted_project_management_tool/",
       "ratio": 0.96,
       "images": null,
-      "crosspostParents": null,
       "flair": null,
       "subredditAndAuthor": null,
       "thumbnail": null

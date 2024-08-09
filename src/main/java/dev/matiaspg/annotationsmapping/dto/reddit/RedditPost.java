@@ -46,9 +46,6 @@ public class RedditPost {
     @MapEachFrom("/data/preview/images")
     private List<Image> images;
 
-    @MapEachFrom("/data/crosspost_parent_list")
-    private List<RedditPost> crosspostParents;
-
     // TODO: Implement annotation
     // If one is not found, try with the other
     @MapAnyOf({"/data/link_flair_text", "/data/link_flair_richtext/0/t"})

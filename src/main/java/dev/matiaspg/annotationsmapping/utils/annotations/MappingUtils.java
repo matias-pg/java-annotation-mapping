@@ -31,7 +31,7 @@ public class MappingUtils {
         // If there's no getter for the type, check if any superclass has a getter
         // This will be useful to map ObjectNode and ArrayNode, but it could be
         // useful for other things in the future (YAGNI though?)
-        if (type.getSuperclass() != null) {
+        if (type.getSuperclass() != null && !type.getSuperclass().equals(Object.class)) {
             return createValueGetter(type.getSuperclass());
         }
         // If there are no superclasses to check, don't keep trying

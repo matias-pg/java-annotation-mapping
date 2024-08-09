@@ -48,9 +48,7 @@ public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
 
     private ValueGetter createValueGetter(Class<?> type, MappingContext ctx) {
         return MappingUtils.createValueGetter(type)
-            // TODO: Prevent deserializing data before executing mappers.
-            //  Test it with RedditPost#images and Image#source
-            .orElseGet(() -> node -> Optional.ofNullable(ctx.mapper().convertValue(node, type)));
+            .orElseGet(() -> node -> Optional.ofNullable(ctx.recursive().apply(node, type)));
     }
 
     private JsonNode getValueNode(JsonNode node, MapFrom annotation) {
