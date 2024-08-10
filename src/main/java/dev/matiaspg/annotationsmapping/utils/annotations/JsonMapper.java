@@ -1,7 +1,6 @@
 package dev.matiaspg.annotationsmapping.utils.annotations;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
 import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueMapper;
 import jakarta.annotation.Nonnull;
@@ -14,30 +13,34 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import static dev.matiaspg.annotationsmapping.utils.annotations.ReflectionUtils.*;
 
 @Component
 @RequiredArgsConstructor
 public class JsonMapper {
-    private final ObjectMapper om;
-    private final MappingAnnotationHandlers handlers;
     private final ValueMappers valueMappersCache;
+    private final MappingAnnotationHandlers handlers;
 
+    @SuppressWarnings("unchecked")
     public <T> T map(JsonNode json, Class<T> targetClass) {
+        return MappingUtils.createValueGetter(targetClass)
+            // If the type is simple enough, try to map it with the getters
+            // from MappingUtils#GETTERS_BY_TYPE
+            // It's safe to cast since the getter returns values of the same type
+            .flatMap(getter -> (Optional<T>) getter.apply(json))
+            // Otherwise, try to map to an object using reflection
+            .orElseGet(() -> mapObject(json, targetClass));
+    }
+
+    private <T> T mapObject(JsonNode json, Class<T> targetClass) {
         Collection<ValueMapper> mappers = valueMappersCache
             // Cache the mappers since they can be reused
-            .getOrCreateMapper(targetClass, () -> {
-                MappingContext ctx = MappingContext.<T>builder()
-                    .mapper(om)
-                    .recursive(this::map)
-                    .build();
-                return getMappers(targetClass, ctx);
-            });
+            .getOrCreateMapper(targetClass,
+                () -> getMappers(targetClass, new MappingContext(this::map)));
 
         // Create an instance of the target class and apply the mappers to it
-        T instance = createInstance(targetClass);
+        T instance = ReflectionUtils.createInstance(targetClass);
         mappers.forEach(mapper -> mapper.accept(json, instance));
 
         return instance;
@@ -45,8 +48,9 @@ public class JsonMapper {
         // TODO (Idea): use Jackson's deserialization capabilities rather than
         //  doing things ourselves. For example, rather than working with
         //  instances, work with ObjectNodes/ArrayNodes, and at the end
-        //  transform them to the final object. This should make code simpler
-        //  and perhaps (?) more efficient
+        //  transform them to the final object. Or check if it's possible to
+        //  use a generic custom deserializer. This could allow for simpler
+        //  code and perhaps (?) be more efficient
     }
 
     private <T> Collection<ValueMapper> getMappers(
@@ -55,13 +59,13 @@ public class JsonMapper {
         List<ValueMapper> mappers = new ArrayList<>();
 
         // Annotated fields
-        for (Field field : getClassFields(targetClass)) {
+        for (Field field : ReflectionUtils.getClassFields(targetClass)) {
             handlers.getHandlers(field.getAnnotations())
                 .map(handler -> handler.createFieldMapper(field, ctx))
                 .forEach(mappers::add);
         }
 
-        for (Method method : getClassMethods(targetClass)) {
+        for (Method method : ReflectionUtils.getClassMethods(targetClass)) {
             // Annotated methods (e.g. setters)
             handlers.getHandlers(method.getAnnotations())
                 .map(handler -> handler.createMethodMapper(method, ctx))

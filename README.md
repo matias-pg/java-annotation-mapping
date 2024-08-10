@@ -110,10 +110,6 @@ TODO
 
 TODO
 
-### `@MapAnyOf`
-
-TODO
-
 ### `@MapManually`
 
 TODO
@@ -207,7 +203,7 @@ dev.matiaspg.mapping.annotationReplacements=[\
     "targetClass": "dev.matiaspg.annotationsmapping.dto.HackerNewsPost",\
     "targetField": "id",\
     "annotationClass": "dev.matiaspg.annotationsmapping.annotations.MapFrom",\
-    "replacements": { "value": "/v2/story_id" }\
+    "replacements": { "value": ["/v2/story_id"] }\
   },\
   {\
     "targetClass": "dev.matiaspg.annotationsmapping.dto.HackerNewsPosts",\
@@ -220,7 +216,7 @@ dev.matiaspg.mapping.annotationReplacements=[\
     "targetMethod": "setMultipleValues",\
     "targetMethodParam": "query",\
     "annotationClass": "dev.matiaspg.annotationsmapping.annotations.MapFrom",\
-    "replacements": { "value": "/v2/meta/query" }\
+    "replacements": { "value": ["/v2/meta/query", "/v3/meta/query"] }\
   }\
 ]
 
@@ -236,4 +232,4 @@ With those replacements, the following things changed:
 - The `setPosts` method from the `HackerNewsPosts` (plural) DTO now works as if it was annotated
   with `@MapEachFrom("/v2/hits")`
 - The `query` parameter from the `setMultipleValues` method from the `HackerNewsPosts` (plural) DTO now works as if it
-  was annotated with `@MapFrom("/v2/meta/query")`
+  was annotated with `@MapFrom({"/v2/meta/query", "/v3/meta/query"})`

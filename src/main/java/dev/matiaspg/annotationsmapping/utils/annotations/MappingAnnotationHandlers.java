@@ -33,7 +33,7 @@ public class MappingAnnotationHandlers {
      * Gets only handlers for annotations we care, ignoring the rest,
      * e.g. @Nonnull or @Nullable
      *
-     * @param annotations The annotations to which a handler will be get
+     * @param annotations The annotations for which to get their handlers
      * @return A stream of handlers
      */
     public Stream<? extends MappingAnnotationHandler<?>> getHandlers(Annotation[] annotations) {

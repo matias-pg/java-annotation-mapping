@@ -2,13 +2,18 @@ package dev.matiaspg.annotationsmapping.dto.reddit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
-import dev.matiaspg.annotationsmapping.annotations.*;
+import dev.matiaspg.annotationsmapping.annotations.ConcatMapFrom;
+import dev.matiaspg.annotationsmapping.annotations.MapEachFrom;
+import dev.matiaspg.annotationsmapping.annotations.MapFrom;
+import dev.matiaspg.annotationsmapping.annotations.MapManually;
 import dev.matiaspg.annotationsmapping.dto.hackernews.HackerNewsPost;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,14 +51,12 @@ public class RedditPost {
     @MapEachFrom("/data/preview/images")
     private List<Image> images;
 
-    // TODO: Implement annotation
     // If one is not found, try with the other
-    @MapAnyOf({"/data/link_flair_text", "/data/link_flair_richtext/0/t"})
+    @MapFrom({"/data/link_flair_text", "/data/link_flair_richtext/0/t"})
     private String flair;
 
-    // TODO: Implement annotation
     // Concat the subreddit and the author with a slash
-    // Example: linux/this_is_a_cool_username
+    // Example: r/linux/this_is_a_cool_username
     // Best use case: first name + last name
     @ConcatMapFrom(delimiter = "/", paths = {"/data/subreddit_name_prefixed", "/data/author"})
     private String subredditAndAuthor;
@@ -78,11 +81,16 @@ public class RedditPost {
     }
 
     // Example of transforming the value via a setter
-    @MapFrom("/data/created_utc")
-    public void setCreatedAtTransformedBySetter(Long createdAt) {
+    public void setCreatedAtTransformedBySetter(
+        @MapFrom("/data/created_utc") Long createdAt,
+        // You can also inject already parsed dates
+        @MapFrom("/data/created_utc") Date createdAtDate,
+        @MapFrom("/data/created_utc") Instant createdAtInstant
+    ) {
         createdAtTransformedBySetter = DateTimeFormatter
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'")
-            .format(LocalDateTime.ofEpochSecond(createdAt, 0, ZoneOffset.UTC));
+            // Notice the parsed Instant is the one being formatted
+            .format(createdAtInstant.atOffset(ZoneOffset.UTC));
     }
 
     // Example of transforming the value via a getter

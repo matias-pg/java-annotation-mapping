@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(properties = """
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "targetField": "testField",\\
         "annotationClass": "dev.matiaspg.annotationsmapping.annotations.MapFrom",\\
         "replacements": {\\
-          "value": "/testField_replaced"\\
+          "value": ["/testField_replaced"]\\
         }\\
       },\\
       {\\
@@ -39,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "targetMethodParam": "aField",\\
         "annotationClass": "dev.matiaspg.annotationsmapping.annotations.MapFrom",\\
         "replacements": {\\
-          "value": "/testMethodWithParams/aField_replaced"\\
+          "value": ["/testMethodWithParams/aField_replaced"]\\
         }\\
       }\\
     ]
@@ -55,13 +56,13 @@ public class AnnotationsProviderTest {
 
         // Original field annotation value
         Field testField = testClass.getDeclaredField("testField");
-        assertEquals("/testField",
+        assertArrayEquals(new String[]{"/testField"},
             testField.getAnnotation(MapFrom.class).value());
 
         // Overridden field annotation value
         MapFrom testFieldMapFrom = annotationsProvider
             .getAnnotation(testField, MapFrom.class);
-        assertEquals("/testField_replaced", testFieldMapFrom.value());
+        assertArrayEquals(new String[]{"/testField_replaced"}, testFieldMapFrom.value());
 
         // Original method annotation value
         Method testMethod = testClass
@@ -78,13 +79,14 @@ public class AnnotationsProviderTest {
         Method testMethodWithParams = testClass
             .getDeclaredMethod("testMethodWithParams", String.class, List.class);
         Parameter firstParameter = testMethodWithParams.getParameters()[0];
-        assertEquals("/testMethodWithParams/aField",
+        assertArrayEquals(new String[]{"/testMethodWithParams/aField"},
             firstParameter.getAnnotation(MapFrom.class).value());
 
         // Overridden method parameter annotation value
         MapFrom firstParameterMapFrom = annotationsProvider
             .getAnnotation(firstParameter, MapFrom.class);
-        assertEquals("/testMethodWithParams/aField_replaced", firstParameterMapFrom.value());
+        assertArrayEquals(new String[]{"/testMethodWithParams/aField_replaced"},
+            firstParameterMapFrom.value());
     }
 
     @Data

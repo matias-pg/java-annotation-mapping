@@ -10,12 +10,14 @@ public @interface MapFrom {
     String NO_DEFAULT_VALUE = "";
 
     /**
-     * Path from where to map the field.
+     * Paths from where to map the field.
+     * <p>
+     * If nothing is found with a path, the next one will be used.
      */
-    String value();
+    String[] value();
 
     /**
-     * Default value to use when the node is null or missing.
+     * Default value to use when all paths were null or missing.
      * <p>
      * It will be passed to {@link TextNode#valueOf(String)} in such case.
      */

@@ -5,23 +5,28 @@ import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class MappingUtils {
-    private static final Map<Class<?>, Function<JsonNode, Object>> GETTERS_BY_TYPE = Map.of(
-        JsonNode.class, node -> node,
-        String.class, JsonNode::asText,
-        boolean.class, JsonNode::asBoolean,
-        Boolean.class, JsonNode::asBoolean,
-        int.class, JsonNode::asInt,
-        Integer.class, JsonNode::asInt,
-        long.class, JsonNode::asLong,
-        Long.class, JsonNode::asLong,
-        double.class, JsonNode::asDouble,
-        Double.class, JsonNode::asDouble
+    private static final Map<Class<?>, Function<JsonNode, Object>> GETTERS_BY_TYPE = Map.ofEntries(
+        Map.entry(JsonNode.class, node -> node),
+        Map.entry(String.class, JsonNode::asText),
+        Map.entry(boolean.class, JsonNode::asBoolean),
+        Map.entry(Boolean.class, JsonNode::asBoolean),
+        Map.entry(int.class, JsonNode::asInt),
+        Map.entry(Integer.class, JsonNode::asInt),
+        Map.entry(long.class, JsonNode::asLong),
+        Map.entry(Long.class, JsonNode::asLong),
+        Map.entry(double.class, JsonNode::asDouble),
+        Map.entry(Double.class, JsonNode::asDouble),
+        Map.entry(Instant.class, MappingUtils::asInstant),
+        Map.entry(Date.class, MappingUtils::asDate)
     );
 
     public static Optional<ValueGetter> createValueGetter(Class<?> type) {
@@ -44,5 +49,37 @@ public class MappingUtils {
         return valueNode.isMissingNode() || valueNode.isNull()
             ? Optional.empty()
             : Optional.of(valueNode);
+    }
+
+    private static Instant asInstant(JsonNode node) {
+        if (node.isTextual()) {
+            return OffsetDateTime.parse(node.asText()).toInstant();
+        } else if (node.isIntegralNumber()) {
+            return createInstant(node.asLong());
+        } else if (node.isMissingNode() || node.isNull()) {
+            return null;
+        }
+        throw new IllegalArgumentException(
+            "Unable to create Instant from node value of type " + node.getNodeType());
+    }
+
+    private static Date asDate(JsonNode node) {
+        Instant instant = asInstant(node);
+        if (instant == null) {
+            return null;
+        }
+        return Date.from(instant);
+    }
+
+    private static Instant createInstant(long secondsOrMilli) {
+        // Timestamps of more than 10 digits normally represent milliseconds
+        if (secondsOrMilli > 9999999999L) {
+            // Create the instant with epoch millis, otherwise most dates would
+            // be at the year 56000+ or so
+            return Instant.ofEpochMilli(secondsOrMilli);
+        }
+        // Create the instant with epoch seconds, otherwise most dates would be
+        // at the year 1970 or so
+        return Instant.ofEpochSecond(secondsOrMilli);
     }
 }

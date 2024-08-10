@@ -57,7 +57,7 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
 
             return Optional.of(collector.apply(stream
                 // Map each item recursively
-                .map(itemNode -> ctx.recursive().apply(itemNode, itemType))));
+                .map(itemNode -> ctx.recurse(itemNode, itemType))));
         };
     }
 
@@ -84,9 +84,8 @@ public class MapEachFromHandler implements MappingAnnotationHandler<MapEachFrom>
                 Array.newInstance(type.getComponentType(), size));
         } else if (Set.class.isAssignableFrom(type)) {
             return stream -> stream.collect(Collectors.toSet());
-        } else {
-            return stream -> stream.collect(Collectors.toList());
         }
+        return stream -> stream.collect(Collectors.toList());
     }
 
     private ItemFilter getItemFilter(MapEachFrom annotation) {

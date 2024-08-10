@@ -47,20 +47,26 @@ public class MapFromHandler implements MappingAnnotationHandler<MapFrom> {
     }
 
     private ValueGetter createValueGetter(Class<?> type, MappingContext ctx) {
-        return MappingUtils.createValueGetter(type)
-            .orElseGet(() -> node -> Optional.ofNullable(ctx.recursive().apply(node, type)));
+        return node -> Optional.ofNullable(ctx.recurse(node, type));
     }
 
     private JsonNode getValueNode(JsonNode node, MapFrom annotation) {
-        return MappingUtils.getValueNode(node, annotation.value())
-            .orElseGet(() -> {
-                if (!NO_DEFAULT_VALUE.equals(annotation.defaultValue())) {
-                    return TextNode.valueOf(annotation.defaultValue());
-                } else if (annotation.defaultEmptyString()) {
-                    return TextNode.valueOf(NO_DEFAULT_VALUE);
-                } else {
-                    return MissingNode.getInstance();
-                }
-            });
+        // Try to get a value node with each path
+        for (String path : annotation.value()) {
+            Optional<JsonNode> valueNode = MappingUtils.getValueNode(node, path);
+            // If a value node is found, return it
+            if (valueNode.isPresent()) {
+                return valueNode.get();
+            }
+        }
+        if (!NO_DEFAULT_VALUE.equals(annotation.defaultValue())) {
+            // Return a default value if one was set
+            return TextNode.valueOf(annotation.defaultValue());
+        } else if (annotation.defaultEmptyString()) {
+            // Return an empty string as default value
+            return TextNode.valueOf(NO_DEFAULT_VALUE);
+        }
+        // Return a MissingNode so no mapping is done
+        return MissingNode.getInstance();
     }
 }

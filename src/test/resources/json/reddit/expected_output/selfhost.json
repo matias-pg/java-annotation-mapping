@@ -13,7 +13,7 @@
       "ratio": 1.0,
       "images": null,
       "flair": null,
-      "subredditAndAuthor": null,
+      "subredditAndAuthor": "kmisterk",
       "thumbnail": null
     },
     {
@@ -69,7 +69,7 @@
         }
       ],
       "flair": null,
-      "subredditAndAuthor": null,
+      "subredditAndAuthor": "r/selfhosted/shol-ly",
       "thumbnail": "https://safeforwork.com/thumbnail.png"
     },
     {
@@ -84,8 +84,8 @@
       "url": "https://www.reddit.com/r/selfhosted/comments/1eic5sw/ente_vs_immich/",
       "ratio": 0.95,
       "images": null,
-      "flair": null,
-      "subredditAndAuthor": null,
+      "flair": "Photo Tools",
+      "subredditAndAuthor": "r/selfhosted/DastardlyDino",
       "thumbnail": null
     },
     {
@@ -100,8 +100,8 @@
       "url": "https://github.com/xpipe-io/xpipe",
       "ratio": 0.93,
       "images": null,
-      "flair": null,
-      "subredditAndAuthor": null,
+      "flair": "Release",
+      "subredditAndAuthor": "r/selfhosted/milchshakee",
       "thumbnail": "https://b.thumbs.redditmedia.com/HhedvijuHdw4JV6vFL-KvZHOx-42QCPAypA_GXN72aw.jpg"
     },
     {
@@ -117,7 +117,7 @@
       "ratio": 0.96,
       "images": null,
       "flair": null,
-      "subredditAndAuthor": null,
+      "subredditAndAuthor": "r/selfhosted/Potential-Here",
       "thumbnail": null
     }
   ],
