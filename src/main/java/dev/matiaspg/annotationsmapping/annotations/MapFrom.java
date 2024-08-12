@@ -19,7 +19,7 @@ public @interface MapFrom {
     /**
      * Default value to use when all paths were null or missing.
      * <p>
-     * It will be passed to {@link TextNode#valueOf(String)} in such case.
+     * Its value will be passed to {@link TextNode#valueOf(String)}.
      */
     String defaultValue() default NO_DEFAULT_VALUE;
 

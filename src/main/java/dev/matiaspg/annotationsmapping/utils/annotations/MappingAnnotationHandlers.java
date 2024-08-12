@@ -1,5 +1,6 @@
 package dev.matiaspg.annotationsmapping.utils.annotations;
 
+import dev.matiaspg.annotationsmapping.utils.annotations.types.MappingAnnotationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

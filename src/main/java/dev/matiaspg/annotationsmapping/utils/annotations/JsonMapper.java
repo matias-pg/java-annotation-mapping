@@ -13,34 +13,38 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
 public class JsonMapper {
+    private final ValueGetters valueGettersCache;
     private final ValueMappers valueMappersCache;
     private final MappingAnnotationHandlers handlers;
 
     @SuppressWarnings("unchecked")
     public <T> T map(JsonNode json, Class<T> targetClass) {
-        return MappingUtils.createValueGetter(targetClass)
+        ValueGetter typeValueGetter = valueGettersCache
+            .getOrCache(targetClass,
+                () -> MappingUtils.getValueGetter(targetClass));
+        if (typeValueGetter != null) {
             // If the type is simple enough, try to map it with the getters
             // from MappingUtils#GETTERS_BY_TYPE
             // It's safe to cast since the getter returns values of the same type
-            .flatMap(getter -> (Optional<T>) getter.apply(json))
-            // Otherwise, try to map to an object using reflection
-            .orElseGet(() -> mapObject(json, targetClass));
+            return (T) typeValueGetter.apply(json);
+        }
+        // Otherwise, try to map to an object using reflection
+        return mapObject(json, targetClass);
     }
 
     private <T> T mapObject(JsonNode json, Class<T> targetClass) {
         Collection<ValueMapper> mappers = valueMappersCache
             // Cache the mappers since they can be reused
-            .getOrCreateMapper(targetClass,
+            .getOrCache(targetClass,
                 () -> getMappers(targetClass, new MappingContext(this::map)));
 
         // Create an instance of the target class and apply the mappers to it
-        T instance = ReflectionUtils.createInstance(targetClass);
+        T instance = ReflectionUtils.newInstance(targetClass);
         mappers.forEach(mapper -> mapper.accept(json, instance));
 
         return instance;
@@ -80,7 +84,7 @@ public class JsonMapper {
                 mappers.add((node, instance) -> {
                     // Call the previously created getters
                     Object[] mappedParams = getters.stream()
-                        .map(getter -> getter.apply(node).orElse(null)).toArray();
+                        .map(getter -> getter.apply(node)).toArray();
 
                     // Invoke the method passing the mapped values
                     ReflectionUtils.invokeMethod(instance, method, mappedParams);

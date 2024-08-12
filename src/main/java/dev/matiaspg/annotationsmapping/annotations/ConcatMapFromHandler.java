@@ -1,17 +1,19 @@
 package dev.matiaspg.annotationsmapping.annotations;
 
+import com.fasterxml.jackson.core.JsonPointer;
 import dev.matiaspg.annotationsmapping.utils.annotations.AnnotationsProvider;
-import dev.matiaspg.annotationsmapping.utils.annotations.MappingAnnotationHandler;
 import dev.matiaspg.annotationsmapping.utils.annotations.MappingContext;
 import dev.matiaspg.annotationsmapping.utils.annotations.MappingUtils;
+import dev.matiaspg.annotationsmapping.utils.annotations.types.MappingAnnotationHandler;
 import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static dev.matiaspg.annotationsmapping.annotations.MapFrom.NO_DEFAULT_VALUE;
@@ -31,28 +33,39 @@ public class ConcatMapFromHandler implements MappingAnnotationHandler<ConcatMapF
     public ValueGetter createValueGetter(
         Type type, ConcatMapFrom annotation, MappingContext ctx
     ) {
+        // Cache things that will be reused
+        JsonPointer[] paths = Stream.of(annotation.paths())
+            .map(JsonPointer::compile)
+            .toArray(JsonPointer[]::new);
+        String defaultValue = createDefaultValue(annotation);
+
         return node -> {
-            List<String> values = Stream.of(annotation.paths())
+            List<String> values = Stream.of(paths)
                 // Get the value in each path
-                .map(path -> MappingUtils.getValueNode(node, path)
-                    .map(valueNode -> ctx.recurse(valueNode, String.class)))
+                .map(node::at)
                 // Ignore the values of nodes that are null or missing
-                .filter(Optional::isPresent).map(Optional::get)
+                .filter(Predicate.not(MappingUtils::isNullOrMissing))
+                .map(valueNode -> ctx.recurse(valueNode, String.class))
                 .toList();
 
             if (!values.isEmpty()) {
-                return Optional.of(String.join(annotation.delimiter(), values));
+                return String.join(annotation.delimiter(), values);
             }
 
-            if (!NO_DEFAULT_VALUE.equals(annotation.defaultValue())) {
-                // Return a default value if one was set
-                return Optional.of(annotation.defaultValue());
-            } else if (annotation.defaultEmptyString()) {
-                // Return an empty string as default value
-                return Optional.of(NO_DEFAULT_VALUE);
-            }
-            // Return a MissingNode so no mapping is done
-            return Optional.empty();
+            return defaultValue;
         };
+    }
+
+    @Nullable
+    private String createDefaultValue(ConcatMapFrom annotation) {
+        if (!NO_DEFAULT_VALUE.equals(annotation.defaultValue())) {
+            // Return a default value if one was set
+            return annotation.defaultValue();
+        } else if (annotation.defaultEmptyString()) {
+            // Return an empty string as default value
+            return NO_DEFAULT_VALUE;
+        }
+        // Return null so no mapping is done
+        return null;
     }
 }

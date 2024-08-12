@@ -2,6 +2,7 @@ package dev.matiaspg.annotationsmapping.utils.annotations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
+import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,6 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.NONE)
@@ -29,26 +29,27 @@ public class MappingUtils {
         Map.entry(Date.class, MappingUtils::asDate)
     );
 
-    public static Optional<ValueGetter> createValueGetter(Class<?> type) {
+    @Nullable
+    public static ValueGetter getValueGetter(Class<?> type) {
         if (GETTERS_BY_TYPE.containsKey(type)) {
-            return Optional.of(node -> Optional.ofNullable(GETTERS_BY_TYPE.get(type).apply(node)));
+            return node -> GETTERS_BY_TYPE.get(type).apply(node);
         }
         // If there's no getter for the type, check if any superclass has a getter
         // This will be useful to map ObjectNode and ArrayNode, but it could be
         // useful for other things in the future (YAGNI though?)
         if (type.getSuperclass() != null && !type.getSuperclass().equals(Object.class)) {
-            return createValueGetter(type.getSuperclass());
+            return getValueGetter(type.getSuperclass());
         }
         // If there are no superclasses to check, don't keep trying
-        return Optional.empty();
+        return null;
     }
 
-    public static Optional<JsonNode> getValueNode(JsonNode node, String path) {
-        JsonNode valueNode = node.at(path);
+    public static boolean isNullOrMissing(JsonNode node) {
+        return node.isMissingNode() || node.isNull();
+    }
 
-        return valueNode.isMissingNode() || valueNode.isNull()
-            ? Optional.empty()
-            : Optional.of(valueNode);
+    public static boolean isBlankText(JsonNode node) {
+        return node.isTextual() && node.asText().isBlank();
     }
 
     private static Instant asInstant(JsonNode node) {

@@ -3,7 +3,7 @@
 Map deep and complex JSONs to POJOs using _configurable_ annotations.
 
 Need to change some annotation, but you don't have time to create a release and deploy it? Don't worry, just update the
-properties file and you're good to go!
+properties and you're good to go!
 
 > Work in progress! This is just a proof of concept where the two most basic annotations (`@MapFrom` and `@MapEachFrom`)
 > are already working, but there are more annotations that have to be implemented.
@@ -123,7 +123,7 @@ This app supports "configuring" annotations from:
 - Parameters of class methods
 - Class themselves (not used for now, but it may be useful in the future)
 
-To do that, you have to define an array of "replacements" in your properties file with a JSON syntax.
+To do that, you have to define an array of "replacements" in your properties with a JSON syntax.
 
 ### From a class field
 
@@ -187,7 +187,7 @@ public class HackerNewsPosts {
 
     private void setMultipleValues(
         @MapFrom("/meta/query") String query,
-        @MapFrom("/meta/nsfw") Boolean nsfw
+        @MapFrom(value = "/meta/nsfw", defaultValue = "true") Boolean nsfw
     ) {
         this.query = query;
         this.nsfw = nsfw;
@@ -195,7 +195,7 @@ public class HackerNewsPosts {
 }
 ```
 
-You can replace annotation values by putting the following in your `application.properties` file:
+You can replace annotation values by putting the following in your properties:
 
 ```properties
 dev.matiaspg.mapping.annotationReplacements=[\
@@ -214,9 +214,9 @@ dev.matiaspg.mapping.annotationReplacements=[\
   {\
     "targetClass": "dev.matiaspg.annotationsmapping.dto.HackerNewsPosts",\
     "targetMethod": "setMultipleValues",\
-    "targetMethodParam": "query",\
+    "targetMethodParam": "nsfw",\
     "annotationClass": "dev.matiaspg.annotationsmapping.annotations.MapFrom",\
-    "replacements": { "value": ["/v2/meta/query", "/v3/meta/query"] }\
+    "replacements": { "value": ["/v2/meta/nsfw", "/v3/meta/nsfw"] }\
   }\
 ]
 
@@ -227,9 +227,33 @@ dev.matiaspg.mapping.annotationReplacements=[\
 
 With those replacements, the following things changed:
 
-- The `id` field from the `HackerNewsPost` (singular) DTO now works as if it was annotated
-  with `@MapFrom("/v2/story_id")`
-- The `setPosts` method from the `HackerNewsPosts` (plural) DTO now works as if it was annotated
-  with `@MapEachFrom("/v2/hits")`
-- The `query` parameter from the `setMultipleValues` method from the `HackerNewsPosts` (plural) DTO now works as if it
-  was annotated with `@MapFrom({"/v2/meta/query", "/v3/meta/query"})`
+- `HackerNewsPost#id` now works as if it was annotated with `@MapFrom("/v2/story_id")`
+- `HackerNewsPosts#setPosts()`  now works as if it was annotated with `@MapEachFrom("/v2/hits")`
+- `HackerNewsPosts#setMultipleValues()` now works as if the `nsfw` parameter was annotated
+  with `@MapFrom(value = {"/v2/meta/nsfw", "/v3/meta/nsfw"}, defaultValue = "true")` (notice how the `defaultValue` is
+  kept the same)
+
+## Performance
+
+The performance of mapping with annotations is, surprisingly, VERY good.
+
+Take a look at the following screenshot for example:
+![Time it took to map 11447 items using annotations vs the "classic" way](screenshot-times.png)
+
+In the screenshot you see the time it took to map 11447 items using annotations vs the "classic" way.
+
+> The "classic" way of mapping is by using mapping functions, like
+> [here](https://github.com/matias-pg/java-annotation-mapping/blob/master/src/main/java/dev/matiaspg/annotationsmapping/mapping/CarMakesClassicMapper.java).
+
+As you can see, the first mapping took almost the same time in both approaches, which is surprising to me because I
+thought it would take much longer due to Reflection.
+
+But what surprises me the most is **how much faster it's after the first mapping**. I knew it would be fast because a
+lot of stuff is cached after the first mapping, but I didn't expect it to be **up to 4 times faster** than the classic
+way.
+
+The difference is in single digit milliseconds but still, I didn't think it would be faster than the classic way **even
+with the optimizations**. Very happy with the results.
+
+> Disclaimer: the testing was done in an AMD Ryzen 5950X CPU, which has 16 cores and 32 threads, so the results may be
+> different in other devices/environments (e.g. the cloud).

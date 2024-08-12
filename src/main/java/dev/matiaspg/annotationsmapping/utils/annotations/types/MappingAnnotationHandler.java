@@ -1,14 +1,14 @@
-package dev.matiaspg.annotationsmapping.utils.annotations;
+package dev.matiaspg.annotationsmapping.utils.annotations.types;
 
-import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueGetter;
-import dev.matiaspg.annotationsmapping.utils.annotations.types.ValueMapper;
+import dev.matiaspg.annotationsmapping.utils.annotations.AnnotationsProvider;
+import dev.matiaspg.annotationsmapping.utils.annotations.MappingContext;
+import dev.matiaspg.annotationsmapping.utils.annotations.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
-import java.util.Optional;
 
 public interface MappingAnnotationHandler<T extends Annotation> {
     AnnotationsProvider getAnnotationsProvider();
@@ -33,13 +33,7 @@ public interface MappingAnnotationHandler<T extends Annotation> {
 
     // Instead of retrieving the value directly, create a "getter" so that
     // reflection info can be cached
-    default ValueGetter createValueGetter(
-        Type type, T annotation, MappingContext ctx) {
-        // An empty optional by default since in the future some handlers will
-        // not return anything, such as the handler of @AfterMapping
-        // Note: if that happens, isn't it better to segregate interfaces?
-        return node -> Optional.empty();
-    }
+    ValueGetter createValueGetter(Type type, T annotation, MappingContext ctx);
 
     default ValueGetter createValueGetter(
         Type type, Parameter param, MappingContext ctx) {
@@ -58,9 +52,11 @@ public interface MappingAnnotationHandler<T extends Annotation> {
             createValueGetter(field.getGenericType(), getAnnotation(field), ctx);
 
         return (node, instance) -> {
+            Object value = valueGetter.apply(node);
             // Set the mapped value to the field
-            valueGetter.apply(node)
-                .ifPresent(value -> ReflectionUtils.setFieldValue(instance, field, value));
+            if (value != null) {
+                ReflectionUtils.setFieldValue(instance, field, value);
+            }
         };
     }
 
@@ -82,9 +78,11 @@ public interface MappingAnnotationHandler<T extends Annotation> {
             createValueGetter(parameterTypes[0], getAnnotation(method), ctx);
 
         return (node, instance) -> {
+            Object value = valueGetter.apply(node);
             // Invoke the method passing the mapped value
-            valueGetter.apply(node)
-                .ifPresent(value -> ReflectionUtils.invokeMethod(instance, method, value));
+            if (value != null) {
+                ReflectionUtils.invokeMethod(instance, method, value);
+            }
         };
     }
 }

@@ -17,7 +17,7 @@ public class TestingUtils {
         long startTime = System.nanoTime();
         StepVerifier.create(resultMono).assertNext(result -> {
             long duration = System.nanoTime() - startTime;
-            log.info("Mapping took {} nanoseconds ({} milliseconds)", duration, duration / 1_000_000);
+            log.info("Mapping took {}ms ({} nanoseconds)", duration / 1_000_000, duration);
 
             JsonAssertions.assertThatJson(result).isEqualTo(expected.get());
         }).verifyComplete();
