@@ -2,10 +2,13 @@ package dev.matiaspg.annotationsmapping.annotations;
 
 import dev.matiaspg.annotationsmapping.utils.annotations.types.ItemFilter;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface MapEachFrom {
     /**
      * Path from where to map the field items.

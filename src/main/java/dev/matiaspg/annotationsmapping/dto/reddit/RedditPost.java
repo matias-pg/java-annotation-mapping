@@ -58,7 +58,8 @@ public class RedditPost {
     // Concat the subreddit and the author with a slash
     // Example: r/linux/this_is_a_cool_username
     // Best use case: first name + last name
-    @ConcatMapFrom(delimiter = "/", paths = {"/data/subreddit_name_prefixed", "/data/author"})
+    @ConcatMapFrom(paths = {"/data/subreddit_name_prefixed", "/data/author"},
+        delimiter = "/")
     private String subredditAndAuthor;
 
     // These fields are set via a setter, see below

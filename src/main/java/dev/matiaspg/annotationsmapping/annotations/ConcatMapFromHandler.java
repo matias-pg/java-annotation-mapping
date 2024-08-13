@@ -46,13 +46,14 @@ public class ConcatMapFromHandler implements MappingAnnotationHandler<ConcatMapF
                 // Ignore the values of nodes that are null or missing
                 .filter(Predicate.not(MappingUtils::isNullOrMissing))
                 .map(valueNode -> ctx.recurse(valueNode, String.class))
+                // Ignore `null`s or blank values
+                .filter(value -> value != null && !value.isBlank())
                 .toList();
 
-            if (!values.isEmpty()) {
-                return String.join(annotation.delimiter(), values);
+            if (values.isEmpty()) {
+                return defaultValue;
             }
-
-            return defaultValue;
+            return String.join(annotation.delimiter(), values);
         };
     }
 

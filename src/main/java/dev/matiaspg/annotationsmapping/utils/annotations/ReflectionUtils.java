@@ -1,17 +1,12 @@
 package dev.matiaspg.annotationsmapping.utils.annotations;
 
-import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import reactor.core.Disposable;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 import java.lang.reflect.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /**
@@ -23,9 +18,6 @@ import java.util.stream.Stream;
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class ReflectionUtils {
     private static final Map<Class<?>, Class<?>[]> CONSTRUCTOR_TYPES_CACHE =
-        new ConcurrentHashMap<>();
-    // TODO: DELETE (not used)
-    private static final Map<Field, Method> FIELD_SETTER_CACHE =
         new ConcurrentHashMap<>();
 
     public static Field[] getClassFields(Class<?> clazz) {
@@ -81,34 +73,6 @@ public class ReflectionUtils {
         method.invoke(object, args);
     }
 
-    @Nullable
-    // TODO: DELETE (not used)
-    public static Method getSetter(Field field) {
-        return FIELD_SETTER_CACHE.computeIfAbsent(field, f -> {
-            final String fieldName = field.getName();
-            final String setterName = "set"
-                + Character.toUpperCase(fieldName.charAt(0))
-                + fieldName.substring(1);
-            for (Method method : field.getDeclaringClass().getDeclaredMethods()) {
-                // A setter is a method that:
-                // - Matches the name of the field (field -> setField)
-                // - Has only one parameter of the same type as the field
-                // - Is public
-                // - Returns void
-                Parameter[] parameters = method.getParameters();
-                if (setterName.equals(method.getName())
-                    && parameters.length == 1
-                    && parameters[0].getType().equals(field.getType())
-                    && Modifier.isPublic(method.getModifiers())
-                    && Void.TYPE == method.getReturnType()
-                ) {
-                    return method;
-                }
-            }
-            return null;
-        });
-    }
-
     public static Class<?> getRawType(Type type) {
         if (type instanceof ParameterizedType parameterizedType) {
             return toClass(parameterizedType.getRawType());
@@ -144,54 +108,5 @@ public class ReflectionUtils {
             return clazz;
         }
         return Class.forName(type.getTypeName());
-    }
-
-    /**
-     * Internal utility class that sets members as accessible for an amount of
-     * time before restoring them to being NOT accessible.
-     * <p>
-     * This is necessary because when doing operations in parallel, a thread
-     * may restore a member to NOT accessible just before another thread needs
-     * to use that member, which would lead to an {@link
-     * IllegalAccessException}.
-     * <p>
-     * Note that this has a small performance overhead (20ms when mapping
-     * ~11500 items on a Ryzen 5950X), which could be higher on other devices/
-     * runtimes. If you need maximum performance, you could simply not call
-     * {@code member.setAccessible(false)} and delete this class. However, I do
-     * this to try to maintain the original values.
-     */
-    // TODO: DELETE (not necessary)
-    private static class AccessibleScheduler {
-        private static final Scheduler SCHEDULER = Schedulers.single();
-        private static final Map<AccessibleObject, Disposable> SCHEDULES =
-            new ConcurrentHashMap<>();
-
-        /**
-         * Sets a member as accessible for an amount of time before restoring
-         * it to being NOT accessible.
-         */
-        private static void setAccessible(AccessibleObject member) {
-            SCHEDULES.compute(member, (m, setNotAccessible) -> {
-                if (setNotAccessible != null) {
-                    // If a "restore" was scheduled, dispose it
-                    setNotAccessible.dispose();
-                } else {
-                    // Otherwise, set as accessible so that it can be modified/invoked
-                    member.setAccessible(true);
-                }
-                return setNotAccessible(member);
-            });
-        }
-
-        private static Disposable setNotAccessible(AccessibleObject member) {
-            final long MAX_DURATION = 1L;
-            // Set as not accessible in 10ms instead of immediately to prevent
-            // race conditions
-            return SCHEDULER.schedule(() -> {
-                member.setAccessible(false);
-                SCHEDULES.remove(member);
-            }, MAX_DURATION, TimeUnit.MILLISECONDS);
-        }
     }
 }

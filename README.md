@@ -20,15 +20,14 @@ properties and you're good to go!
 
 These are the most basic annotations and the ones you will use the most:
 
-- `@MapFrom`: maps a single field
+- `@MapFrom`: maps a field from one or multiple possible field paths (the first that works)
 - `@MapEachFrom`: maps multiple objects from an array
 
-#### Examples
+#### Example
 
 Assuming you have DTOs like this:
 
 ```java
-package dev.matiaspg.annotationsmapping.dto;
 
 @Data
 public class HackerNewsPosts {
@@ -102,11 +101,60 @@ The resulting mapping will be this:
 
 TODO
 
-### `@AfterMapping`
-
-TODO
-
 ### `@ConcatMapFrom`
+
+Maps the text value of multiple fields after joining them with a delimiter.
+
+#### Example
+
+Assuming you have a DTO like this:
+
+```java
+
+@Data
+public class Person {
+    @ConcatMapFrom(paths = {"/name", "/lastName"}, delimiter = " ")
+    private String fullName;
+}
+```
+
+And a JSON like this:
+
+```json
+{
+  "name": "Jack",
+  "lastName": "Cooper"
+}
+```
+
+The resulting mapping will be this:
+
+```json
+{
+  "fullName": "Jack Cooper"
+}
+```
+
+If a field is missing or its value is `null` or a blank text, it will be ignored in the final concatenation.
+
+For example, a `Person` was mapped from the following JSON:
+
+```json
+{
+  "name": "Jack",
+  "lastName": null
+}
+```
+
+The resulting mapping will be this:
+
+```json
+{
+  "fullName": "Jack"
+}
+```
+
+### `@AfterMapping`
 
 TODO
 

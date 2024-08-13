@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * <p>
  * The method will be called with the JsonNode used to map the current object.
  */
-@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface MapManually {
 }
